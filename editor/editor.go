@@ -21,7 +21,7 @@ func (e *Editor) Setup() {
 	ebiten.SetTPS(60)
 	ebiten.SetWindowTitle("femto")
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
-	ebiten.SetWindowDecorated(false)
+	ebiten.SetWindowDecorated(true)
 
 	if runtime.GOOS != "darwin" {
 		file, err := os.Open("assets/appicon.png")
