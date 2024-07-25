@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/Tesohh/femto/editor"
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 func main() {
-	fmt.Println("CISSY")
+	editor := editor.Editor{}
+	editor.Setup()
+
+	if err := ebiten.RunGame(&editor); err != nil {
+		log.Fatal(err)
+	}
 }
