@@ -1,28 +1,27 @@
 package editor
 
-import (
-	"github.com/hajimehoshi/ebiten/v2"
-)
+import "github.com/gdamore/tcell/v2"
 
-func (e *Editor) Draw(screen *ebiten.Image) {
-	x := 0
-	y := 32
-
-	e.TextRenderer.SetTarget(screen)
-
-	buf, err := e.tab().Buffer.Read()
+func (e *Editor) Draw() error {
+	buf := e.tab().Buffer
+	text, err := buf.Read()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	for _, line := range buf {
+	x := 0
+	y := 0
+
+	for _, line := range text {
 		for _, char := range line {
-			s := string(char)
-			e.TextRenderer.Draw(s, x, y)
-			rect := e.TextRenderer.SelectionRect(s)
-			x += rect.Width.Ceil()
+			e.Screen.SetContent(x, y, char, nil, tcell.StyleDefault)
+			x += 1
 		}
-		rect := e.TextRenderer.SelectionRect("a")
-		y += rect.Height.Ceil()
+		x = 0
+		y += 1
 	}
+	e.Screen.ShowCursor(x, y)
+
+	e.Screen.Show()
+	return nil
 }
