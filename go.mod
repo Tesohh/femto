@@ -14,6 +14,9 @@ require (
 	github.com/ebitengine/purego v0.7.0 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/jezek/xgb v1.1.1 // indirect
+	github.com/tinne26/etxt v0.0.8 // indirect
+	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
 )

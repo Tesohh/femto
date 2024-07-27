@@ -20,9 +20,19 @@ type CRUDer interface {
 	Delete(pos femath.Vec2) rune
 }
 
+type Reader interface {
+	Read() ([][]rune, error)
+}
+
+type Writer interface {
+	Write([][]rune) error
+}
+
 type Buffer interface {
 	Cursorer
 	CRUDer
+	Reader
+	Writer
 
 	// io.Reader
 	// io.Writer
