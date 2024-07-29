@@ -9,7 +9,6 @@ type Editor struct {
 	Tabs  []Tab
 	TabId int
 
-	Mode   string
 	Keymap Keymap
 
 	Screen tcell.Screen
@@ -23,13 +22,13 @@ func (e *Editor) Setup() {
 	e.Tabs = []Tab{{
 		Buffer:   &buffer.SliceBuffer{},
 		FilePath: "",
+		Mode:     ModeNormal,
 	}} // TEMP:
 	e.tab().Buffer.Write([][]rune{
 		[]rune("hello world"),
 		[]rune("hello tubre"),
 	}) // TEMP:
 
-	e.Mode = ModeNormal
 	e.Keymap = defaultKeymap
 	// TODO: Load custom config and Keymap
 

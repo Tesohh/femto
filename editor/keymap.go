@@ -4,12 +4,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
-type Keymap map[string]map[tcell.Key]string
-
-// type Key struct {
-// 	Key  tcell.Key
-// 	Rune rune
-// }
+type Keymap map[Mode]map[tcell.Key]string
 
 var defaultKeymap = Keymap{
 	ModeNormal: {

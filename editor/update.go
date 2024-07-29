@@ -10,7 +10,7 @@ func (e *Editor) Update() error {
 	switch event := event.(type) {
 	case *tcell.EventKey:
 		// TODO: this can't do anything with regular Rune keypresses. Perhaps, what about using the event.Name() as the keymap key?
-		id, ok := e.Keymap[e.Mode][event.Key()]
+		id, ok := e.Keymap[e.tab().Mode][event.Key()]
 		if !ok {
 			return ErrNoKeyAssociated.Context(event.Name())
 		}
