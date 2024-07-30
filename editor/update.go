@@ -1,6 +1,8 @@
 package editor
 
 import (
+	"log/slog"
+
 	"github.com/gdamore/tcell/v2"
 )
 
@@ -9,6 +11,10 @@ func (e *Editor) Update() error {
 
 	switch event := event.(type) {
 	case *tcell.EventKey:
+		if event.Rune() == 'a' && event.Modifiers()&tcell.ModCtrl != 0 {
+			slog.Info("what can i buy for 50 centems")
+		}
+
 		// TODO: this can't do anything with regular Rune keypresses. Perhaps, what about using the event.Name() as the keymap key?
 		id, ok := e.Keymap[e.tab().Mode][event.Key()]
 		if !ok {
