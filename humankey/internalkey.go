@@ -7,3 +7,7 @@ type InternalKey struct {
 	Rune    rune
 	ModMask tcell.ModMask
 }
+
+func (i InternalKey) Matches(event tcell.EventKey) bool {
+	return i.Key == event.Key() && i.Rune == event.Rune() && i.ModMask == event.Modifiers()
+}

@@ -2,6 +2,7 @@ package editor
 
 import (
 	"github.com/Tesohh/femto/buffer"
+	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 )
 
@@ -9,7 +10,7 @@ type Editor struct {
 	Tabs  []Tab
 	TabId int
 
-	Keymap Keymap
+	Keymap humankey.InternalKeymap
 
 	Screen tcell.Screen
 }
@@ -29,10 +30,12 @@ func (e *Editor) Setup() {
 		[]rune("hello tubre"),
 	}) // TEMP:
 
-	e.Keymap = defaultKeymap
-	// TODO: Load custom config and Keymap
-
 	var err error
+	e.Keymap, err = defaultKeymap.ToInternal()
+	if err != nil {
+		panic(err)
+	}
+	// TODO: Load custom config and Keymap
 
 	e.Screen, err = tcell.NewScreen()
 	if err != nil {

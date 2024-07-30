@@ -1,13 +1,11 @@
 package editor
 
 import (
-	"github.com/gdamore/tcell/v2"
+	"github.com/Tesohh/femto/humankey"
 )
 
-type Keymap map[Mode]map[tcell.Key]string
-
-var defaultKeymap = Keymap{
-	ModeNormal: {
-		tcell.KeyCtrlC: "quit",
+var defaultKeymap = humankey.HumanKeymap{
+	"normal": {
+		"ctrl+c": "quit",
 	},
 }
