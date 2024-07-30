@@ -34,8 +34,10 @@ func (e *Editor) Update() error {
 		} else if len(matches) == 0 {
 			// if nothing matches just clear the sequence,
 			// TODO:  perhaps even show an error...
+
+			pp := humankey.PrettyPrintSequence(e.tab().Sequence)
 			e.tab().Sequence = []humankey.InternalKey{}
-			return nil
+			return ErrNoKeyAssociated.Context(pp)
 		}
 	case *tcell.EventError:
 		return event
