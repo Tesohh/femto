@@ -25,7 +25,13 @@ func Parse(s string) (InternalKey, error) {
 	}
 
 	if isCtrl && isInCtrlKeys {
-		key = InternalKey{Key: ctrlKey}
+		var r rune
+		if trimmedRunicPart == "space" {
+			r = ' '
+		} else {
+			r = rune(trimmedRunicPart[0])
+		}
+		key = InternalKey{Key: ctrlKey, Rune: r, ModMask: tcell.ModCtrl}
 	} else { // regular modmask case
 		// add modmasks
 		for _, section := range sections[:len(sections)-1] {

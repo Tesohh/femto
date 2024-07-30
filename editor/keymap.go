@@ -6,6 +6,7 @@ import (
 
 var defaultKeymap = humankey.HumanKeymap{
 	"normal": {
-		"ctrl+c": "quit",
+		"ctrl+c":  "quit",
+		"space q": "quit",
 	},
 }

@@ -9,5 +9,17 @@ type InternalKey struct {
 }
 
 func (i InternalKey) Matches(event tcell.EventKey) bool {
-	return i.Key == event.Key() && i.Rune == event.Rune() && i.ModMask == event.Modifiers()
+	keyMatches := i.Key == event.Key()
+	runeMatches := i.Rune == event.Rune() || event.Key() != tcell.KeyRune
+	modMaskMatches := i.ModMask == event.Modifiers()
+
+	return keyMatches && runeMatches && modMaskMatches
+}
+
+func (i InternalKey) MatchesInternal(key InternalKey) bool {
+	keyMatches := i.Key == key.Key
+	runeMatches := i.Rune == key.Rune || key.Key != tcell.KeyRune
+	modMaskMatches := i.ModMask == key.ModMask
+
+	return keyMatches && runeMatches && modMaskMatches
 }

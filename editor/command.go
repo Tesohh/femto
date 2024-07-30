@@ -4,6 +4,15 @@ import "os"
 
 type CommandFunc func(e *Editor) error
 
+func (e *Editor) RunCommand(id string) error {
+	cmd, ok := Commands[id]
+	if !ok {
+		return ErrNoCommandFound.Context(id)
+	}
+
+	return cmd.Func(e)
+}
+
 type Command struct {
 	Name        string
 	Description string // if empty, takes the Name as Description

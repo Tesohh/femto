@@ -1,6 +1,9 @@
 package editor
 
-import "github.com/Tesohh/femto/buffer"
+import (
+	"github.com/Tesohh/femto/buffer"
+	"github.com/Tesohh/femto/humankey"
+)
 
 const (
 	ModeNormal Mode = "normal"
@@ -12,5 +15,6 @@ type Mode string
 type Tab struct {
 	Buffer   buffer.Buffer
 	FilePath string // set to "@@@scratchpad@@@" to make a scratchpad buffer 🤯
-	Mode     Mode
+	Mode     string
+	Sequence []humankey.InternalKey
 }
