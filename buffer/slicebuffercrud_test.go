@@ -21,10 +21,10 @@ func TestCRUD(t *testing.T) {
 
 	t.Run("bulk inserting", func(t *testing.T) {
 		s := "[]string args"
-		buf.Pos.X = 10
+		buf.pos.X = 10
 		for _, v := range s {
-			buf.Insert(buf.Pos, v)
-			buf.Pos.X += 1
+			buf.Insert(buf.pos, v)
+			buf.pos.X += 1
 		}
 
 		assert.DeepEqual(t, buf.content[0], []rune("func main([]string args) {"))
