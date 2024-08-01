@@ -34,6 +34,7 @@ func (e *Editor) RegisterKeymap(keymap humankey.HumanKeymap) error {
 
 type PluginInfo struct {
 	Id          string
+	Author      string
 	Name        string
 	Description string
 }

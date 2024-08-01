@@ -18,7 +18,7 @@ func (e *Editor) Draw() error {
 		}
 	}
 
-	buf := e.tab().Buffer
+	buf := e.Tab().Buffer
 	text, err := buf.Read()
 	if err != nil {
 		return err

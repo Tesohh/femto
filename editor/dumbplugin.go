@@ -8,10 +8,10 @@ import (
 // A plugin that only has a Startup function,
 // and can contribute Commands and Keymap
 //
-// ideally only use this, unless you REALLY need to access the main loop
+// ideally only use **this**, unless you REALLY need to access the main loop
 type DumbPlugin struct {
 	Info     PluginInfo
-	Commands map[string]Command
+	Commands map[string]Command // if it's a third party plugin, please prefix Commands with your plugin id
 	Keymap   humankey.HumanKeymap
 }
 

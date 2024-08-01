@@ -9,8 +9,9 @@ import (
 
 var Movement = editor.DumbPlugin{
 	Info: editor.PluginInfo{
-		Id:   "editor.movement",
-		Name: "Movement",
+		Id:     "femto.movement",
+		Author: "femto",
+		Name:   "Movement",
 	},
 	Commands: map[string]editor.Command{
 		"left": {

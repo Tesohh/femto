@@ -17,7 +17,7 @@ type Editor struct {
 	Screen tcell.Screen
 }
 
-func (e *Editor) tab() *Tab {
+func (e *Editor) Tab() *Tab {
 	return &e.Tabs[e.TabId]
 }
 func (e *Editor) Buf() buffer.Buffer { // dont need to pointer it: interfaces ARE pointers
@@ -30,7 +30,7 @@ func (e *Editor) Setup() {
 		FilePath: "",
 		Mode:     "normal",
 	}} // TEMP:
-	e.tab().Buffer.Write([][]rune{
+	e.Tab().Buffer.Write([][]rune{
 		[]rune("hello world"),
 		[]rune("hello tubre and zernez"),
 		[]rune("oh slicebufer"),
