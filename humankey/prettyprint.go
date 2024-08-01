@@ -15,19 +15,19 @@ func PrettyPrintInternalKey(key InternalKey) string {
 	if key.Key != tcell.KeyRune {
 		s += tcell.KeyNames[key.Key]
 	} else {
-		s += strings.ToLower(string(key.Rune))
+		s += string(key.Rune)
 	}
 
-	if key.ModMask&tcell.ModCtrl == 0 {
+	if key.ModMask&tcell.ModCtrl != 0 {
 		s = "ctrl+" + s
 	}
-	if key.ModMask&tcell.ModShift == 0 {
+	if key.ModMask&tcell.ModShift != 0 {
 		s = "shift+" + s
 	}
-	if key.ModMask&tcell.ModAlt == 0 {
+	if key.ModMask&tcell.ModAlt != 0 {
 		s = "alt+" + s
 	}
-	if key.ModMask&tcell.ModMeta == 0 {
+	if key.ModMask&tcell.ModMeta != 0 {
 		s = "meta+" + s
 	}
 
