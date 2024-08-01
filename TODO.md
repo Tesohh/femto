@@ -1,1 +1,10 @@
-- [ ] Move from ebiten to terminal rendering
+- [x] Move from ebiten to terminal rendering
+- [x] Human key package
+- [ ] Basic editing features
+  - [ ] hjkl and arrow keys
+  - [ ] Mode switching
+  - [ ] insert mode
+  - [ ] file writing / reading
+- [ ] Windowing system
+- [ ] Plugin "api"
+- [ ] add all the fun features

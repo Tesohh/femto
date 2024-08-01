@@ -28,6 +28,7 @@ func (e *Editor) Update() error {
 		matches := e.Keymap.GetMatches(e.tab().Mode, e.tab().Sequence)
 		if len(matches) == 1 && len(matches[0].Sequence) == len(e.tab().Sequence) {
 			err := e.RunCommand(matches[0].Command)
+			e.tab().Sequence = []humankey.InternalKey{}
 			if err != nil {
 				return err
 			}

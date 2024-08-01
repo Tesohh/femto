@@ -11,12 +11,14 @@ type Cursorer interface {
 	Right(times int)
 
 	GoTo(pos femath.Vec2)
+	Pos() femath.Vec2
 }
 
 type CRUDer interface {
 	Insert(pos femath.Vec2, r rune)
 	Replace(pos femath.Vec2, r rune) rune
 	Get(pos femath.Vec2) rune
+	Line() []rune
 	Delete(pos femath.Vec2) rune
 }
 

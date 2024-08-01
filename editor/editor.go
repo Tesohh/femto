@@ -19,6 +19,9 @@ type Editor struct {
 func (e *Editor) tab() *Tab {
 	return &e.Tabs[e.TabId]
 }
+func (e *Editor) buf() *buffer.Buffer {
+	return &e.Tabs[e.TabId].Buffer
+}
 
 func (e *Editor) Setup() {
 	e.Tabs = []Tab{{
@@ -28,7 +31,9 @@ func (e *Editor) Setup() {
 	}} // TEMP:
 	e.tab().Buffer.Write([][]rune{
 		[]rune("hello world"),
-		[]rune("hello tubre"),
+		[]rune("hello tubre and zernez"),
+		[]rune("oh slicebufer"),
+		[]rune("        java"),
 	}) // TEMP:
 
 	e.Commands = Commands

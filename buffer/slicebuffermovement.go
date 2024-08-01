@@ -3,9 +3,9 @@ package buffer
 import "github.com/Tesohh/femto/femath"
 
 func (s *SliceBuffer) Down(times int) {
-	s.Pos.Y += times
-	s.Pos.Y = femath.Clamp(s.Pos.Y, 0, len(s.content)-1)
-	s.Pos.X = femath.Clamp(s.Pos.X, 0, len(s.content[s.Pos.Y])-1)
+	s.pos.Y += times
+	s.pos.Y = femath.Clamp(s.pos.Y, 0, len(s.content)-1)
+	s.pos.X = femath.Clamp(s.pos.X, 0, len(s.content[s.pos.Y])-1)
 }
 
 func (s *SliceBuffer) Up(times int) {
@@ -13,8 +13,8 @@ func (s *SliceBuffer) Up(times int) {
 }
 
 func (s *SliceBuffer) Right(times int) {
-	s.Pos.X += times
-	s.Pos.X = femath.Clamp(s.Pos.X, 0, len(s.content[s.Pos.Y])-1)
+	s.pos.X += times
+	s.pos.X = femath.Clamp(s.pos.X, 0, len(s.content[s.pos.Y])-1)
 }
 
 func (s *SliceBuffer) Left(times int) {
@@ -22,6 +22,10 @@ func (s *SliceBuffer) Left(times int) {
 }
 
 func (s *SliceBuffer) GoTo(pos femath.Vec2) {
-	s.Pos.Y = femath.Clamp(pos.Y, 0, len(s.content)-1)
-	s.Pos.X = femath.Clamp(pos.X, 0, len(s.content[s.Pos.Y])-1)
+	s.pos.Y = femath.Clamp(pos.Y, 0, len(s.content)-1)
+	s.pos.X = femath.Clamp(pos.X, 0, len(s.content[s.pos.Y])-1)
+}
+
+func (s *SliceBuffer) Pos() femath.Vec2 {
+	return s.pos
 }

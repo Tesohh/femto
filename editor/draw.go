@@ -1,6 +1,9 @@
 package editor
 
-import "github.com/gdamore/tcell/v2"
+import (
+	"github.com/gdamore/tcell/v2"
+	"github.com/mattn/go-runewidth"
+)
 
 func (e *Editor) Draw() error {
 	buf := e.tab().Buffer
@@ -15,12 +18,12 @@ func (e *Editor) Draw() error {
 	for _, line := range text {
 		for _, char := range line {
 			e.Screen.SetContent(x, y, char, nil, tcell.StyleDefault)
-			x += 1
+			x += runewidth.RuneWidth(char)
 		}
 		x = 0
 		y += 1
 	}
-	e.Screen.ShowCursor(x, y)
+	e.Screen.ShowCursor(buf.Pos().X, buf.Pos().Y)
 
 	e.Screen.Show()
 	return nil

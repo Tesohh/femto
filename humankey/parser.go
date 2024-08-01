@@ -3,7 +3,6 @@ package humankey
 import (
 	"fmt"
 	"strings"
-	"unicode"
 
 	"github.com/gdamore/tcell/v2"
 )
@@ -52,12 +51,12 @@ func Parse(s string) (InternalKey, error) {
 		if specialKey, ok := specialKeysMap[lastSection]; ok {
 			key.Key = specialKey
 		} else if len(lastSection) == 1 {
-			key.Rune = unicode.ToLower(rune(lastSection[0]))
+			key.Rune = rune(lastSection[0])
 			key.Key = tcell.KeyRune
 
-			if unicode.IsUpper(rune(lastSection[0])) && key.ModMask&tcell.ModShift == 0 { // check for shift
-				key.ModMask |= tcell.ModShift
-			}
+			// if unicode.IsUpper(rune(lastSection[0])) && key.ModMask&tcell.ModShift == 0 { // check for shift
+			// 	key.ModMask |= tcell.ModShift
+			// }
 		} else if lastSection == "space" {
 			key.Rune = ' '
 			key.Key = tcell.KeyRune
