@@ -8,15 +8,6 @@ import (
 	"github.com/Tesohh/femto/editor"
 )
 
-func logErr(err error) {
-	if err, ok := err.(editor.FemtoError); ok {
-		// TODO: do different things based on error level
-		slog.Log(context.TODO(), err.LogLevel, err.Error())
-	} else {
-		slog.Error(err.Error())
-	}
-}
-
 func main() {
 	f, err := os.OpenFile("femto.log", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
@@ -28,6 +19,14 @@ func main() {
 
 	e := editor.Editor{}
 	e.Setup()
+	e.Plugins = pluginsList // TODO: Load only enabled plugins + mandatory plugins
+
+	for _, p := range e.Plugins {
+		err := p.Startup(&e)
+		if err != nil {
+			panic(err)
+		}
+	}
 
 	for {
 		err := e.Update()
@@ -35,6 +34,7 @@ func main() {
 			logErr(err)
 			continue
 		}
+
 		err = e.Draw()
 		if err != nil {
 			logErr(err)
@@ -42,4 +42,13 @@ func main() {
 		}
 	}
 
+}
+
+func logErr(err error) {
+	if err, ok := err.(editor.FemtoError); ok {
+		// TODO: do different things based on error level
+		slog.Log(context.TODO(), err.LogLevel, err.Error())
+	} else {
+		slog.Error(err.Error())
+	}
 }

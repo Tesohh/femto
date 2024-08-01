@@ -8,6 +8,18 @@ import (
 func (e *Editor) Update() error {
 	event := e.Screen.PollEvent()
 
+	for _, p := range e.Plugins {
+		switch p.(type) {
+		case *DumbPlugin:
+			break
+		default:
+			err := p.Update(e, event)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
 	switch event := event.(type) {
 	case *tcell.EventKey:
 		if event.Key() == tcell.KeyEsc && e.tab().Mode == "normal" {

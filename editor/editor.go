@@ -12,6 +12,7 @@ type Editor struct {
 
 	Keymap   humankey.InternalKeymap
 	Commands map[string]Command
+	Plugins  []Plugin
 
 	Screen tcell.Screen
 }
@@ -19,8 +20,8 @@ type Editor struct {
 func (e *Editor) tab() *Tab {
 	return &e.Tabs[e.TabId]
 }
-func (e *Editor) buf() *buffer.Buffer {
-	return &e.Tabs[e.TabId].Buffer
+func (e *Editor) Buf() buffer.Buffer { // dont need to pointer it: interfaces ARE pointers
+	return e.Tabs[e.TabId].Buffer
 }
 
 func (e *Editor) Setup() {

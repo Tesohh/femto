@@ -6,6 +6,18 @@ import (
 )
 
 func (e *Editor) Draw() error {
+	for _, p := range e.Plugins {
+		switch p.(type) {
+		case *DumbPlugin:
+			break
+		default:
+			err := p.Draw(e)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
 	buf := e.tab().Buffer
 	text, err := buf.Read()
 	if err != nil {
