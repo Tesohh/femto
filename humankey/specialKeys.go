@@ -2,6 +2,8 @@ package humankey
 
 import "github.com/gdamore/tcell/v2"
 
+var UppercaseSpecialCharset = "!@#$%^&()_+{}:\"<>?|~"
+
 var specialKeysMap = map[string]tcell.Key{
 	"enter":      tcell.KeyEnter,
 	"backspace":  tcell.KeyBackspace,

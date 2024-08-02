@@ -1,6 +1,7 @@
 package editor
 
 import (
+	"strings"
 	"time"
 	"unicode"
 
@@ -45,7 +46,8 @@ func (e *Editor) Update() error {
 			ModMask: event.Modifiers(),
 		}
 
-		if unicode.IsUpper(key.Rune) { // band aid solution for windows adding shift+ to uppercase chars
+		if unicode.IsUpper(key.Rune) || strings.ContainsRune(humankey.UppercaseSpecialCharset, key.Rune) {
+			// band aid solution for windows adding shift+ to uppercase chars
 			key.ModMask &= ^tcell.ModShift
 		}
 
