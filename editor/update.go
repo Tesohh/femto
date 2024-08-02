@@ -2,6 +2,7 @@ package editor
 
 import (
 	"time"
+	"unicode"
 
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
@@ -42,6 +43,10 @@ func (e *Editor) Update() error {
 			Key:     event.Key(),
 			Rune:    event.Rune(),
 			ModMask: event.Modifiers(),
+		}
+
+		if unicode.IsUpper(key.Rune) { // band aid solution for windows adding shift+ to uppercase chars
+			key.ModMask &= ^tcell.ModShift
 		}
 
 		e.Tab().Sequence = append(e.Tab().Sequence, key)

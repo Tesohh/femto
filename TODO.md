@@ -2,8 +2,8 @@
 - [x] Human key package
 - [x] Basic editing features
   - [x] hjkl and arrow keys
-  - [ ] Mode switching
-  - [ ] insert mode
+  - [x] Mode switching
+  - [x] insert mode
   - [ ] file writing / reading
 - [ ] Windowing system
 - [ ] Plugin "api"
