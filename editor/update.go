@@ -1,9 +1,19 @@
 package editor
 
 import (
+	"time"
+
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 )
+
+type EventCaught struct {
+	when time.Time
+}
+
+func (c *EventCaught) When() time.Time {
+	return c.when
+}
 
 func (e *Editor) Update() error {
 	event := e.Screen.PollEvent()
@@ -13,9 +23,9 @@ func (e *Editor) Update() error {
 		case *DumbPlugin:
 			break
 		default:
-			err := p.Update(e, event)
-			if err != nil {
-				return err
+			ev := p.Update(e, event)
+			if ev != nil {
+				event = ev
 			}
 		}
 	}
@@ -58,6 +68,8 @@ func (e *Editor) Update() error {
 		w, h := event.Size()
 		e.Screen.SetSize(w, h)
 		e.Screen.Sync()
+	case *EventCaught:
+		return nil
 	}
 
 	return nil

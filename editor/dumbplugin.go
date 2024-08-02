@@ -35,6 +35,6 @@ func (p *DumbPlugin) Draw(e *Editor) error {
 	return nil
 }
 
-func (p *DumbPlugin) Update(e *Editor, event tcell.Event) error {
+func (p *DumbPlugin) Update(e *Editor, event tcell.Event) tcell.Event {
 	return nil
 }

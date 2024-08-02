@@ -1,0 +1,80 @@
+package plugins
+
+import (
+	"github.com/Tesohh/femto/editor"
+	"github.com/Tesohh/femto/humankey"
+	"github.com/gdamore/tcell/v2"
+)
+
+type InsertMode struct{}
+
+var info = editor.PluginInfo{
+	Id:     "femto.insertmode",
+	Author: "femto",
+	Name:   "Insert mode",
+}
+
+var keymap = humankey.HumanKeymap{
+	"normal": {
+		"i": "insert.i",
+	},
+	"insert": {
+		"esc":       "normal",
+		"backspace": "backspace",
+	},
+}
+
+var commands = map[string]editor.Command{
+	"insert.i": {
+		Func: func(e *editor.Editor) error {
+			e.Tab().Mode = "insert"
+			// TODO: place cursor in right place
+			return nil
+		},
+	},
+	"normal": {
+		Func: func(e *editor.Editor) error {
+			e.Tab().Mode = "normal"
+			return nil
+		},
+	},
+	"backspace": {
+		Func: func(e *editor.Editor) error {
+			if e.Buf().Pos().X == 0 {
+				return nil
+			}
+			e.Buf().Left(1)
+			e.Buf().Delete(e.Buf().Pos())
+			return nil
+		},
+	},
+}
+
+func (p *InsertMode) GetInfo() editor.PluginInfo {
+	return info
+}
+
+func (p *InsertMode) Startup(e *editor.Editor) error {
+	e.RegisterCommandMap(commands)
+	return e.RegisterKeymap(keymap)
+}
+
+func (p *InsertMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
+	if e.Tab().Mode != "insert" {
+		return nil
+	}
+
+	if event, ok := event.(*tcell.EventKey); ok {
+		if event.Key() == tcell.KeyRune {
+			e.Buf().Insert(e.Buf().Pos(), event.Rune())
+			e.Buf().Right(1)
+			return &editor.EventCaught{}
+		}
+	}
+
+	return nil
+}
+
+func (p *InsertMode) Draw(e *editor.Editor) error {
+	return nil
+}

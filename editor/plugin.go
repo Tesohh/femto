@@ -6,14 +6,6 @@ import (
 )
 
 func (e *Editor) RegisterCommandMap(cmds map[string]Command) {
-	// names := strings.Split(cmd.Name, " ")
-	// for i, s := range names[1:] {
-	// 	names[i] = strings.ToUpper(s[:1]) + strings.ToLower(s[1:])
-	// }
-	//
-	// name := strings.Join(names, "")
-	// id := fmt.Sprintf("%s.%s", namespace, name)
-
 	for k, v := range cmds {
 		e.Commands[k] = v
 	}
@@ -42,6 +34,6 @@ type PluginInfo struct {
 type Plugin interface {
 	GetInfo() PluginInfo
 	Startup(*Editor) error
+	Update(*Editor, tcell.Event) tcell.Event // Plugins can hijack the event by returning a new one. Only do this for errors or for catching the event
 	Draw(*Editor) error
-	Update(*Editor, tcell.Event) error
 }

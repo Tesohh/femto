@@ -10,7 +10,6 @@ func (ik InternalKeymap) GetMatches(mode string, currentSequence []InternalKey) 
 	entries := []InternalKeymapEntry{}
 
 	for _, v := range ik[mode] {
-		// slog.Info(fmt.Sprintf("%v %v", len(v.Sequence), len(currentSequence)))
 		if len(v.Sequence) < len(currentSequence) {
 			continue
 		}

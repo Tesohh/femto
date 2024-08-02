@@ -1,10 +1,13 @@
 - [x] Move from ebiten to terminal rendering
 - [x] Human key package
-- [ ] Basic editing features
-  - [ ] hjkl and arrow keys
+- [x] Basic editing features
+  - [x] hjkl and arrow keys
   - [ ] Mode switching
   - [ ] insert mode
   - [ ] file writing / reading
 - [ ] Windowing system
 - [ ] Plugin "api"
+  - [x] Base Plugin interface
+  - [x] DumbPlugin implementation
+  - [ ] Access to editor stuff
 - [ ] add all the fun features

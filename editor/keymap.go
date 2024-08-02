@@ -8,4 +8,7 @@ var defaultKeymap = humankey.HumanKeymap{
 	"normal": {
 		"ctrl+c": "quit",
 	},
+	"insert": {
+		"ctrl+c": "quit",
+	},
 }

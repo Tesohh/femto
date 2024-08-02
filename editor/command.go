@@ -21,7 +21,19 @@ type Command struct {
 	Func        CommandFunc
 }
 
+func Alias(cmd string) CommandFunc {
+	return func(e *Editor) error {
+		return e.RunCommand(cmd)
+	}
+}
+
 var Commands = map[string]Command{
+	"noop": {
+		Name: "no operation",
+		Func: func(e *Editor) error {
+			return nil
+		},
+	},
 	"write": {
 		Name: "Write file",
 		Func: func(e *Editor) error {

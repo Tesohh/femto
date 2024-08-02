@@ -18,11 +18,12 @@ func (e *Editor) Draw() error {
 		}
 	}
 
-	buf := e.Tab().Buffer
-	text, err := buf.Read()
+	text, err := e.Buf().Read()
 	if err != nil {
 		return err
 	}
+
+	e.Screen.Clear()
 
 	x := 0
 	y := 0
@@ -35,7 +36,7 @@ func (e *Editor) Draw() error {
 		x = 0
 		y += 1
 	}
-	e.Screen.ShowCursor(buf.Pos().X, buf.Pos().Y)
+	e.Screen.ShowCursor(e.Buf().Pos().X, e.Buf().Pos().Y)
 
 	e.Screen.Show()
 	return nil
