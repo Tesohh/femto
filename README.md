@@ -25,7 +25,6 @@ It's so bad, you're just better off writing on paper and OCR scanning your code
 			* caveat: you need to recompile to add plugins.
 	* Modal
 * Esoteric features (planned):
-	* Disclaimer: these features are meant to mock the declining quality of software, AAA gaming and tech in general
 	* Optional plugins:
 		- [ ] Battle pass: locks some editor features behind a leveling system, the ideal way to use a text editor.
 		- [ ] Goals: Can set daily goals, like "use femto for 30 min" and gain battle pass xp from it.
