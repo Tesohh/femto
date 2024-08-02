@@ -35,5 +35,5 @@ It's so bad, you're just better off writing on paper and OCR scanning your code
 		- [ ] NFT: gives you an NFT every battle pass level.
 		- [ ] Quantum: uses quantum 999999 quettaflops of cloud quantum computing power to greet users when entering the editor.
 		- [ ] CrowdStrikeStrike: There's a very small chance that your editor goes into a BSOD loop, unless you restart it 15 times.
-		- [ ] JSGod: Asks the [javascript god](https://www.youtube.com/watch?v=6FEYcBPBGOk&t=0s) how much time passed since his latest creation (framework) when you open a javascript/typescript file.
+		- [ ] JSGod: Asks the [javascript god](https://www.youtube.com/watch?v=6FEYcBPBGOk&t=428s) how much time passed since his latest creation (framework) when you open a javascript/typescript file.
 		- [ ] Electronify: your editor will load 4s slower and use 400mb more RAM.
