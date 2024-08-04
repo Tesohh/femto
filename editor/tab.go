@@ -14,6 +14,7 @@ type Mode string
 
 type Tab struct {
 	Buffer   buffer.Buffer
+	Windows  []Window
 	FilePath string // set to "@@@scratchpad@@@" to make a scratchpad buffer 🤯
 	Mode     string
 	Sequence []humankey.InternalKey

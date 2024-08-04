@@ -6,6 +6,7 @@
   - [x] insert mode
   - [ ] file writing / reading
 - [ ] Windowing system
+  - [ ] Move to editor being a window too
 - [ ] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
