@@ -17,6 +17,7 @@ const (
 	AlignmentRight  Alignment = 1
 	AlignmentTop    Alignment = 2
 	AlignmentBottom Alignment = 3
+	AlignmentCenter Alignment = 4
 )
 
 type WindowFlags uint8
@@ -28,6 +29,8 @@ const (
 )
 
 type Window struct {
+	Id string
+
 	Alignment Alignment
 	Size      int
 	Priority  int

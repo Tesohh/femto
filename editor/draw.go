@@ -59,6 +59,24 @@ func (e *Editor) Draw() error {
 		}
 	}
 
+	// render the center window (presumably the buffer)
+	tempcount := 0
+	for _, w := range windows {
+		if w.Alignment != AlignmentCenter {
+			continue
+		}
+		if tempcount > 1 {
+			panic("more than 1 centered window. currently impossible")
+		}
+
+		err := w.Draw(e, lefts, tops, width-rights, height-bottoms)
+		if err != nil {
+			return err
+		}
+
+		tempcount += 1
+	}
+
 	e.Screen.Show()
 
 	// draw buffer (which will become just a window)

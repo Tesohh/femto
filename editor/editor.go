@@ -73,6 +73,12 @@ func (e *Editor) Setup() {
 			Flags:     WindowFlagHasBorder,
 			Content:   &buffer.SliceBuffer{},
 		},
+		{
+			Alignment: AlignmentCenter,
+			Priority:  0,
+			Shown:     true,
+			Content:   &buffer.SliceBuffer{},
+		},
 	}
 	e.Windows[0].Content.Write([][]rune{
 		[]rune("cissy"),
@@ -89,6 +95,17 @@ func (e *Editor) Setup() {
 	e.Windows[3].Content.Write([][]rune{
 		[]rune("cissy.go"),
 		[]rune("func main() >"),
+	})
+	e.Windows[4].Content.Write([][]rune{
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
+		[]rune("ciojweofijwefiwefoiwejfoiwej"),
 	})
 
 	e.Commands = Commands
