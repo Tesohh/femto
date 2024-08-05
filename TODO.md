@@ -6,9 +6,27 @@
   - [x] insert mode
   - [ ] file writing / reading
 - [ ] Windowing system
+  - [x] Orchestrating
+  - [ ] Rendering
+    - [x] basic drawing
+    - [ ] range based drawing (for when content goes out of rendering bounds)
   - [ ] Move to editor being a window too
+    - [x] Center window
+    - [ ] The buffer is a tab local window
+    - [ ] Movement commands are easy: they should apply to ANY buffer, just make Buf() return the currently focused buffer
+    - [ ] Editing commands too should simply apply to the current buffer (just that the buffer can be written to)
+    - [ ] Where do we store filenames and other editor's tab's buffer specific data?
+      - [ ] Also easy, we move it from the Tab to the Window.
+      - [ ] UI buffers have no filename, which means they are "scratchpads"
+      - [ ] Mode, sequence and all that is saved in the Window of course.
+      - [ ] Tab becomes just a collection of tab local windows
+    - [ ] Ability to get a window by id, both on editor and tab
+          This is for plugins that need other windows data
 - [ ] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
   - [ ] Access to editor stuff
 - [ ] add all the fun features
+- [ ] interactive windows
+  - [ ] Interactive windows have a special type of buffer.
+  - [ ] Some commands (eg Enter) are forwarded to the interactive window, which has it's own CommandMap and can manage and execute itself.
