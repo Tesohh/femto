@@ -41,15 +41,54 @@ func (e *Editor) Setup() {
 	e.Windows = []Window{
 		{
 			Alignment: AlignmentBottom,
-			Size:      1,
-			Priority:  2,
+			Size:      3,
+			Priority:  3,
 			Shown:     true,
+			Flags:     WindowFlagHasBorder,
+			Content:   &buffer.SliceBuffer{},
+		},
+		{
+			Alignment:   AlignmentLeft,
+			Size:        15,
+			Priority:    1,
+			Shown:       true,
+			Flags:       WindowFlagHasBorder,
+			Content:     &buffer.SliceBuffer{},
+			BorderStyle: tcell.StyleDefault.Dim(true),
+		},
+		{
+			Alignment:   AlignmentRight,
+			Size:        15,
+			Priority:    1,
+			Shown:       true,
+			Flags:       WindowFlagHasBorder,
+			Content:     &buffer.SliceBuffer{},
+			BorderStyle: tcell.StyleDefault.Dim(true),
+		},
+		{
+			Alignment: AlignmentTop,
+			Size:      3,
+			Priority:  0,
+			Shown:     true,
+			Flags:     WindowFlagHasBorder,
 			Content:   &buffer.SliceBuffer{},
 		},
 	}
 	e.Windows[0].Content.Write([][]rune{
 		[]rune("cissy"),
-		[]rune("la sidebar"),
+		[]rune("la bottombar"),
+	})
+	e.Windows[1].Content.Write([][]rune{
+		[]rune("sinistro"),
+		[]rune("sinistro"),
+	})
+	e.Windows[2].Content.Write([][]rune{
+		[]rune("destroooooooooo"),
+		[]rune("destro"),
+	})
+	e.Windows[3].Content.Write([][]rune{
+		[]rune("cissy.go"),
+		[]rune("func main() >"),
 	})
 
 	e.Commands = Commands

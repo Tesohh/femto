@@ -2,12 +2,12 @@ package editor
 
 import (
 	"cmp"
-	"fmt"
 	"log/slog"
 	"slices"
 )
 
 func (e *Editor) Draw() error {
+	slog.Info("Redrawing...")
 	e.Screen.Clear()
 
 	// draw Plugins
@@ -29,10 +29,8 @@ func (e *Editor) Draw() error {
 		return !w.Shown
 	})
 	slices.SortFunc(windows, func(a Window, b Window) int {
-		return cmp.Compare(a.Priority, b.Priority)
+		return cmp.Compare(a.Priority, b.Priority) * -1
 	})
-
-	slog.Info(fmt.Sprintf("%#v", windows))
 
 	width, height := e.Screen.Size()
 	lefts := 0
@@ -50,7 +48,7 @@ func (e *Editor) Draw() error {
 			err = w.Draw(e, width-rights-w.Size, tops, width-rights, height-bottoms)
 			rights += w.Size
 		case AlignmentTop:
-			err = w.Draw(e, lefts, tops, width-rights, w.Size)
+			err = w.Draw(e, lefts, tops, width-rights-rights+1, w.Size) // bandaid
 			tops += w.Size
 		case AlignmentBottom:
 			err = w.Draw(e, lefts, height-bottoms-w.Size, width-rights, height-bottoms)
