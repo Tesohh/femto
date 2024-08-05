@@ -14,7 +14,8 @@ type Editor struct {
 	Commands map[string]Command
 	Plugins  []Plugin
 
-	Screen tcell.Screen
+	Screen  tcell.Screen
+	Windows []Window
 }
 
 func (e *Editor) Tab() *Tab {
@@ -36,6 +37,20 @@ func (e *Editor) Setup() {
 		[]rune("oh slicebufer"),
 		[]rune("        java"),
 	}) // TEMP:
+
+	e.Windows = []Window{
+		{
+			Alignment: AlignmentBottom,
+			Size:      1,
+			Priority:  2,
+			Shown:     true,
+			Content:   &buffer.SliceBuffer{},
+		},
+	}
+	e.Windows[0].Content.Write([][]rune{
+		[]rune("cissy"),
+		[]rune("la sidebar"),
+	})
 
 	e.Commands = Commands
 

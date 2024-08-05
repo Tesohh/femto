@@ -1,6 +1,8 @@
 package editor
 
 import (
+	"log/slog"
+
 	"github.com/Tesohh/femto/buffer"
 	"github.com/gdamore/tcell/v2"
 	"github.com/mattn/go-runewidth"
@@ -13,8 +15,8 @@ func (e *Editor) RegisterWindow(w Window) {
 type Alignment uint8
 
 const (
-	AlignmentRight  Alignment = 0
-	AlignmentLeft   Alignment = 1
+	AlignmentLeft   Alignment = 0
+	AlignmentRight  Alignment = 1
 	AlignmentTop    Alignment = 2
 	AlignmentBottom Alignment = 3
 )
@@ -40,11 +42,13 @@ type Window struct {
 	// TODO: ColorSections
 }
 
-func (w *Window) Draw(e *Editor, startX, startY, boundX, boundY int) error {
+func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int) error {
 	text, err := w.Content.Read()
 	if err != nil {
 		return err
 	}
+
+	slog.Info("SLOG THIS SHIT")
 
 	x := 0
 	y := 0
