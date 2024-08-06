@@ -8,5 +8,5 @@ import (
 var pluginsList = []editor.Plugin{
 	&plugins.Movement,
 	&plugins.InsertMode{},
-	// &plugins.TestWindowsPlugin{},
+	&plugins.TestWindowsPlugin{},
 }

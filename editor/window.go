@@ -50,7 +50,7 @@ type Window struct {
 	BorderStyle tcell.Style
 }
 
-func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int) error {
+func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int, isFocused bool) error {
 	text, err := w.Buffer.Read()
 	if err != nil {
 		return err
@@ -77,6 +77,10 @@ func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int)
 			continue
 		}
 		y += 1
+	}
+
+	if isFocused {
+		e.Screen.ShowCursor(w.Buffer.Pos().X+startX, w.Buffer.Pos().Y+startY)
 	}
 
 	if w.Flags&WindowFlagHasBorder != 0 {

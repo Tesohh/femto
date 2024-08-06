@@ -3,6 +3,7 @@ package editor
 import (
 	"cmp"
 	"log/slog"
+	"reflect"
 	"slices"
 )
 
@@ -40,18 +41,19 @@ func (e *Editor) Draw() error {
 
 	for _, w := range windows {
 		var err error
+		isFocused := reflect.DeepEqual(*e.Win(), w)
 		switch w.Alignment {
 		case AlignmentLeft:
-			err = w.Draw(e, lefts, tops, lefts+w.Size, height-bottoms)
+			err = w.Draw(e, lefts, tops, lefts+w.Size, height-bottoms, isFocused)
 			lefts += w.Size
 		case AlignmentRight:
-			err = w.Draw(e, width-rights-w.Size, tops, width-rights, height-bottoms)
+			err = w.Draw(e, width-rights-w.Size, tops, width-rights, height-bottoms, isFocused)
 			rights += w.Size
 		case AlignmentTop:
-			err = w.Draw(e, lefts, tops, width-rights-rights+1, w.Size) // bandaid
+			err = w.Draw(e, lefts, tops, width-rights-rights+1, w.Size, isFocused) // bandaid
 			tops += w.Size
 		case AlignmentBottom:
-			err = w.Draw(e, lefts, height-bottoms-w.Size, width-rights, height-bottoms)
+			err = w.Draw(e, lefts, height-bottoms-w.Size, width-rights, height-bottoms, isFocused)
 			bottoms += w.Size
 		}
 		if err != nil {
@@ -69,15 +71,14 @@ func (e *Editor) Draw() error {
 			panic("more than 1 centered window. currently impossible")
 		}
 
-		err := w.Draw(e, lefts, tops, width-rights, height-bottoms)
+		isFocused := reflect.DeepEqual(*e.Win(), w)
+		err := w.Draw(e, lefts, tops, width-rights, height-bottoms, isFocused)
 		if err != nil {
 			return err
 		}
 
 		tempcount += 1
 	}
-
-	e.Screen.ShowCursor(e.Buf().Pos().X, e.Buf().Pos().Y)
 
 	e.Screen.Show()
 	return nil

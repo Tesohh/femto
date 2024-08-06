@@ -16,7 +16,7 @@ func (p *TestWindowsPlugin) GetInfo() editor.PluginInfo {
 	}
 }
 func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
-	e.Windows = []editor.Window{
+	e.Windows = append(e.Windows, []editor.Window{
 		{
 			Alignment: editor.AlignmentBottom,
 			Size:      3,
@@ -51,13 +51,7 @@ func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
 			Flags:     editor.WindowFlagHasBorder,
 			Buffer:    &buffer.SliceBuffer{},
 		},
-		{
-			Alignment: editor.AlignmentCenter,
-			Priority:  0,
-			Shown:     true,
-			Buffer:    &buffer.SliceBuffer{},
-		},
-	}
+	}...)
 	e.Windows[0].Buffer.Write([][]rune{
 		[]rune("cissy"),
 		[]rune("la bottombar"),
@@ -73,17 +67,6 @@ func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
 	e.Windows[3].Buffer.Write([][]rune{
 		[]rune("cissy.go"),
 		[]rune("func main() >"),
-	})
-	e.Windows[4].Buffer.Write([][]rune{
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
 	})
 	return nil
 }
