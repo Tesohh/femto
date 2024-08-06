@@ -2,6 +2,7 @@ package editor
 
 import (
 	"github.com/Tesohh/femto/buffer"
+	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 	"github.com/mattn/go-runewidth"
 )
@@ -39,13 +40,18 @@ type Window struct {
 	Focused bool
 	Flags   WindowFlags
 
-	Content buffer.Buffer // to implement interactivity, you just need to make a type InteractiveBuffer and runtime check if its that typ
+	// buffer stuff
+	Buffer   buffer.Buffer // to implement interactivity, you just need to make a type InteractiveBuffer and runtime check if its that typ
+	FilePath string        // if left empty, will treat buffer as scratchpad
+	Mode     string
+	Sequence []humankey.InternalKey
+
 	// TODO: ColorSections
 	BorderStyle tcell.Style
 }
 
 func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int) error {
-	text, err := w.Content.Read()
+	text, err := w.Buffer.Read()
 	if err != nil {
 		return err
 	}

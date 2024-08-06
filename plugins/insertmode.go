@@ -27,14 +27,14 @@ var keymap = humankey.HumanKeymap{
 var commands = map[string]editor.Command{
 	"insert.i": {
 		Func: func(e *editor.Editor) error {
-			e.Tab().Mode = "insert"
+			e.Win().Mode = "insert"
 			// TODO: place cursor in right place
 			return nil
 		},
 	},
 	"normal": {
 		Func: func(e *editor.Editor) error {
-			e.Tab().Mode = "normal"
+			e.Win().Mode = "normal"
 			return nil
 		},
 	},
@@ -60,7 +60,7 @@ func (p *InsertMode) Startup(e *editor.Editor) error {
 }
 
 func (p *InsertMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
-	if e.Tab().Mode != "insert" {
+	if e.Win().Mode != "insert" {
 		return nil
 	}
 

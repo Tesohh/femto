@@ -14,99 +14,46 @@ type Editor struct {
 	Commands map[string]Command
 	Plugins  []Plugin
 
-	Screen  tcell.Screen
-	Windows []Window
+	Screen             tcell.Screen
+	Windows            []Window
+	FocusedWindowIndex int // if set to something that isn't -1, overrides the Tab's CurrentWindowId
 }
 
 func (e *Editor) Tab() *Tab {
 	return &e.Tabs[e.TabId]
 }
-func (e *Editor) Buf() buffer.Buffer { // dont need to pointer it: interfaces ARE pointers
-	return e.Tabs[e.TabId].Buffer
+func (e *Editor) Win() *Window {
+	if e.FocusedWindowIndex < 0 {
+		return &e.Tabs[e.TabId].Windows[e.Tab().FocusedWindowIndex]
+	} else {
+		return &e.Windows[e.FocusedWindowIndex]
+	}
+}
+func (e *Editor) Buf() buffer.Buffer {
+	return e.Win().Buffer
 }
 
 func (e *Editor) Setup() {
 	e.Tabs = []Tab{{
-		Buffer:   &buffer.SliceBuffer{},
-		FilePath: "",
-		Mode:     "normal",
-	}} // TEMP:
-	e.Tab().Buffer.Write([][]rune{
+		Windows: []Window{
+			{
+				Alignment: AlignmentCenter,
+				Shown:     true,
+				Buffer:    &buffer.SliceBuffer{},
+				Mode:      "normal",
+				Sequence:  []humankey.InternalKey{},
+			},
+		},
+	}}
+
+	e.FocusedWindowIndex = -1
+
+	e.Buf().Write([][]rune{
 		[]rune("hello world"),
 		[]rune("hello tubre and zernez"),
 		[]rune("oh slicebufer"),
 		[]rune("        java"),
 	}) // TEMP:
-
-	e.Windows = []Window{
-		{
-			Alignment: AlignmentBottom,
-			Size:      3,
-			Priority:  3,
-			Shown:     true,
-			Flags:     WindowFlagHasBorder,
-			Content:   &buffer.SliceBuffer{},
-		},
-		{
-			Alignment:   AlignmentLeft,
-			Size:        15,
-			Priority:    1,
-			Shown:       true,
-			Flags:       WindowFlagHasBorder,
-			Content:     &buffer.SliceBuffer{},
-			BorderStyle: tcell.StyleDefault.Dim(true),
-		},
-		{
-			Alignment:   AlignmentRight,
-			Size:        15,
-			Priority:    1,
-			Shown:       true,
-			Flags:       WindowFlagHasBorder,
-			Content:     &buffer.SliceBuffer{},
-			BorderStyle: tcell.StyleDefault.Dim(true),
-		},
-		{
-			Alignment: AlignmentTop,
-			Size:      3,
-			Priority:  0,
-			Shown:     true,
-			Flags:     WindowFlagHasBorder,
-			Content:   &buffer.SliceBuffer{},
-		},
-		{
-			Alignment: AlignmentCenter,
-			Priority:  0,
-			Shown:     true,
-			Content:   &buffer.SliceBuffer{},
-		},
-	}
-	e.Windows[0].Content.Write([][]rune{
-		[]rune("cissy"),
-		[]rune("la bottombar"),
-	})
-	e.Windows[1].Content.Write([][]rune{
-		[]rune("sinistro"),
-		[]rune("sinistro"),
-	})
-	e.Windows[2].Content.Write([][]rune{
-		[]rune("destroooooooooo"),
-		[]rune("destro"),
-	})
-	e.Windows[3].Content.Write([][]rune{
-		[]rune("cissy.go"),
-		[]rune("func main() >"),
-	})
-	e.Windows[4].Content.Write([][]rune{
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-		[]rune("ciojweofijwefiwefoiwejfoiwej"),
-	})
 
 	e.Commands = Commands
 
