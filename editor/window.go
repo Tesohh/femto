@@ -7,8 +7,19 @@ import (
 	"github.com/mattn/go-runewidth"
 )
 
+func setupWindow(w *Window) *Window {
+	w.Mode = "normal"
+	w.Sequence = []humankey.InternalKey{}
+	if w.Buffer == nil {
+		w.Buffer = &buffer.SliceBuffer{}
+	}
+
+	return w
+}
+
 func (e *Editor) RegisterWindow(w Window) {
-	e.Tab().Windows = append(e.Tab().Windows, w)
+	setupWindow(&w)
+	e.Windows = append(e.Windows, w)
 }
 
 type Alignment uint8
@@ -27,6 +38,7 @@ const (
 	WindowFlagReadonly    WindowFlags = 1
 	WindowFlagInteractive WindowFlags = 2
 	WindowFlagHasBorder   WindowFlags = 4
+	WindowFlagUnfocusable WindowFlags = 8
 )
 
 type Window struct {

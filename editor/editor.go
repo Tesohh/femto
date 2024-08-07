@@ -34,17 +34,12 @@ func (e *Editor) Buf() buffer.Buffer {
 }
 
 func (e *Editor) Setup() {
-	e.Tabs = []Tab{{
-		Windows: []Window{
-			{
-				Alignment: AlignmentCenter,
-				Shown:     true,
-				Buffer:    &buffer.SliceBuffer{},
-				Mode:      "normal",
-				Sequence:  []humankey.InternalKey{},
-			},
-		},
-	}}
+	e.Tabs = []Tab{{}} // TEMP:
+
+	e.Tabs[0].RegisterWindow(Window{
+		Alignment: AlignmentCenter,
+		Shown:     true,
+	}) // TEMP:
 
 	e.FocusedWindowIndex = -1
 

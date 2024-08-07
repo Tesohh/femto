@@ -3,6 +3,7 @@ package plugins
 import (
 	"github.com/Tesohh/femto/buffer"
 	"github.com/Tesohh/femto/editor"
+	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 )
 
@@ -16,42 +17,49 @@ func (p *TestWindowsPlugin) GetInfo() editor.PluginInfo {
 	}
 }
 func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
-	e.Windows = append(e.Windows, []editor.Window{
-		{
-			Alignment: editor.AlignmentBottom,
-			Size:      3,
-			Priority:  3,
-			Shown:     true,
-			Flags:     editor.WindowFlagHasBorder,
-			Buffer:    &buffer.SliceBuffer{},
+	e.RegisterKeymap(humankey.HumanKeymap{
+		"normal": {
+			"1": "test_moving_window",
 		},
-		{
-			Alignment:   editor.AlignmentLeft,
-			Size:        15,
-			Priority:    1,
-			Shown:       true,
-			Flags:       editor.WindowFlagHasBorder,
-			Buffer:      &buffer.SliceBuffer{},
-			BorderStyle: tcell.StyleDefault.Dim(true),
+	})
+	e.RegisterCommandMap(map[string]editor.Command{
+		"test_moving_window": {
+			Func: func(e *editor.Editor) error {
+				e.FocusedWindowIndex = 1
+				return nil
+			},
 		},
-		{
-			Alignment:   editor.AlignmentRight,
-			Size:        15,
-			Priority:    1,
-			Shown:       true,
-			Flags:       editor.WindowFlagHasBorder,
-			Buffer:      &buffer.SliceBuffer{},
-			BorderStyle: tcell.StyleDefault.Dim(true),
-		},
-		{
-			Alignment: editor.AlignmentTop,
-			Size:      3,
-			Priority:  0,
-			Shown:     true,
-			Flags:     editor.WindowFlagHasBorder,
-			Buffer:    &buffer.SliceBuffer{},
-		},
-	}...)
+	})
+	e.RegisterWindow(editor.Window{
+		Alignment: editor.AlignmentBottom,
+		Size:      1,
+		Priority:  3,
+		Shown:     true,
+	})
+	e.RegisterWindow(editor.Window{
+		Alignment:   editor.AlignmentLeft,
+		Size:        15,
+		Priority:    1,
+		Shown:       true,
+		Flags:       editor.WindowFlagHasBorder,
+		BorderStyle: tcell.StyleDefault.Dim(true),
+	})
+	e.RegisterWindow(editor.Window{
+		Alignment:   editor.AlignmentRight,
+		Size:        15,
+		Priority:    1,
+		Shown:       true,
+		Flags:       editor.WindowFlagHasBorder,
+		BorderStyle: tcell.StyleDefault.Dim(true),
+	})
+	e.RegisterWindow(editor.Window{
+		Alignment: editor.AlignmentTop,
+		Size:      2,
+		Priority:  0,
+		Shown:     true,
+		Buffer:    &buffer.SliceBuffer{},
+	})
+
 	e.Windows[0].Buffer.Write([][]rune{
 		[]rune("cissy"),
 		[]rune("la bottombar"),
@@ -66,7 +74,6 @@ func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
 	})
 	e.Windows[3].Buffer.Write([][]rune{
 		[]rune("cissy.go"),
-		[]rune("func main() >"),
 	})
 	return nil
 }

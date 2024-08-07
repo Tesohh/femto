@@ -24,6 +24,8 @@
       - [x] Tab becomes just a collection of tab local windows
   - [ ] Ability to get a window by id, both on editor and tab
         This is for plugins that need other windows data
+  - [ ] Move from string mode to enum modes, so windows always start in normal mode
+        Or you could also just set "normal" as a fallback when receiving strokes
 - [ ] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
