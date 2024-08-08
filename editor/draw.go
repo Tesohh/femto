@@ -5,6 +5,8 @@ import (
 	"log/slog"
 	"reflect"
 	"slices"
+
+	"github.com/gdamore/tcell/v2"
 )
 
 func (e *Editor) Draw() error {
@@ -80,6 +82,12 @@ func (e *Editor) Draw() error {
 		tempcount += 1
 	}
 
+	switch e.Win().Mode {
+	case "normal":
+		e.Screen.SetCursorStyle(tcell.CursorStyleSteadyBlock)
+	case "insert":
+		e.Screen.SetCursorStyle(tcell.CursorStyleSteadyBar)
+	}
 	e.Screen.Show()
 	return nil
 }
