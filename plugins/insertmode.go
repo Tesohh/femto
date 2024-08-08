@@ -17,6 +17,7 @@ var info = editor.PluginInfo{
 var keymap = humankey.HumanKeymap{
 	"normal": {
 		"i": "insert.i",
+		"a": "insert.a",
 	},
 	"insert": {
 		"esc":       "normal",
@@ -28,13 +29,20 @@ var commands = map[string]editor.Command{
 	"insert.i": {
 		Func: func(e *editor.Editor) error {
 			e.Win().Mode = "insert"
-			// TODO: place cursor in right place
+			return nil
+		},
+	},
+	"insert.a": {
+		Func: func(e *editor.Editor) error {
+			e.Buf().ForceRight(1)
+			e.Win().Mode = "insert"
 			return nil
 		},
 	},
 	"normal": {
 		Func: func(e *editor.Editor) error {
 			e.Win().Mode = "normal"
+			e.Buf().Left(1)
 			return nil
 		},
 	},
@@ -67,7 +75,7 @@ func (p *InsertMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 	if event, ok := event.(*tcell.EventKey); ok {
 		if event.Key() == tcell.KeyRune {
 			e.Buf().Insert(e.Buf().Pos(), event.Rune())
-			e.Buf().Right(1)
+			e.Buf().ForceRight(1)
 			return &editor.EventCaught{}
 		}
 	}

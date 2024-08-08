@@ -9,6 +9,7 @@ type Cursorer interface {
 	Down(times int)
 	Left(times int)
 	Right(times int)
+	ForceRight(times int)
 
 	GoTo(pos femath.Vec2)
 	Pos() femath.Vec2

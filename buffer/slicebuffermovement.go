@@ -17,6 +17,10 @@ func (s *SliceBuffer) Right(times int) {
 	s.pos.X = femath.Clamp(s.pos.X, 0, len(s.content[s.pos.Y])-1)
 }
 
+func (s *SliceBuffer) ForceRight(times int) {
+	s.pos.X += times
+}
+
 func (s *SliceBuffer) Left(times int) {
 	s.Right(times * -1)
 }
