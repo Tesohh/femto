@@ -37,20 +37,25 @@ func (s *StatusBar) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 
 func (s *StatusBar) Draw(e *editor.Editor) error {
 	mode := ""
-	style := tcell.StyleDefault
+	style := tcell.StyleDefault.Bold(true)
 	switch e.Win().Mode {
 	case "normal":
 		mode = "NORMAL"
-		style = style.Background(tcell.Color(0x303030)) // TEMP: should read from theme
+		style = style.Background(tcell.NewHexColor(0xc4a7e7)) // TEMP: should read from theme
 	case "insert":
 		mode = "INSERT"
-		style = style.Background(tcell.Color(0x303030)) // TEMP: should read from theme
+		style = style.Background(tcell.NewHexColor(0xf6c177)) // TEMP: should read from theme
 	}
-
-	_ = style // TEMP:
 
 	str := fmt.Sprintf(" %s ", mode)
 
+	s.w.StyleSections = []editor.StyleSection{}
+	s.w.StyleSections = append(s.w.StyleSections, editor.StyleSection{
+		Y:      0,
+		StartX: 0,
+		EndX:   len(" NORMAL "),
+		Style:  style,
+	})
 	s.w.Buffer.Write([][]rune{[]rune(str)})
 	return nil
 }

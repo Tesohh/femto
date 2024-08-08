@@ -1,6 +1,9 @@
 package editor
 
 import (
+	"fmt"
+	"log/slog"
+
 	"github.com/Tesohh/femto/buffer"
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
@@ -59,8 +62,8 @@ type Window struct {
 	Mode     string
 	Sequence []humankey.InternalKey
 
-	// TODO: ColorSections
-	BorderStyle tcell.Style
+	StyleSections []StyleSection
+	BorderStyle   tcell.Style
 }
 
 func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int, isFocused bool) error {
@@ -72,16 +75,36 @@ func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int,
 	x := 0
 	y := 0
 
+	if w.Alignment == AlignmentRight { // bandaid fix... if it works it works
+		startX += 2
+	}
+
 	for _, line := range text {
-		if w.Alignment == AlignmentRight { // bandaid fix... if it works it works
-			x += 2
+		// PERF: this is probably really bad.
+		// filter out all sections that arent in this line so char has to do less work
+		styles := []StyleSection{}
+		for _, s := range w.StyleSections {
+			if s.Y == y {
+				styles = append(styles, s)
+			}
 		}
 
 		for _, char := range line {
 			if x+startX >= boundX {
 				continue
 			}
-			e.Screen.SetContent(x+startX, y+startY, char, nil, tcell.StyleDefault)
+
+			style := tcell.StyleDefault
+			for _, s := range styles {
+				if x >= s.StartX && x <= s.EndX {
+					style = s.Style
+					break
+				}
+			}
+
+			slog.Info(fmt.Sprintf("%#v", style))
+
+			e.Screen.SetContent(x+startX, y+startY, char, nil, style)
 			x += runewidth.RuneWidth(char)
 		}
 
