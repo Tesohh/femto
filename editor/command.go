@@ -18,6 +18,7 @@ func (e *Editor) RunCommand(id string) error {
 type Command struct {
 	Name        string
 	Description string // if empty, takes the Name as Description
+	Public      bool   // if public, can be executed in command mode
 	Func        CommandFunc
 }
 

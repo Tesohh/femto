@@ -24,12 +24,10 @@
       - [x] Tab becomes just a collection of tab local windows
   - [ ] Ability to get a window by id, both on editor and tab
         This is for plugins that need other windows data
-- [ ] Move from string mode to enum modes, so windows always start in normal mode
-      Or you could also just set "normal" as a fallback when receiving strokes
-- [ ] Plugin "api"
+- [x] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
-  - [ ] Access to editor stuff
+  - [x] Access to editor stuff
 - [ ] interactive windows
   - [ ] Interactive windows have a special type of buffer.
   - [ ] Some commands (eg Enter) are forwarded to the interactive window, which has it's own CommandMap and can manage and execute itself.

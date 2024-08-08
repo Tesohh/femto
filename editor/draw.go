@@ -11,6 +11,7 @@ import (
 
 func (e *Editor) Draw() error {
 	slog.Info("Redrawing...")
+	e.Screen.SetStyle(e.Theme.Default)
 	e.Screen.Clear()
 
 	// draw Plugins

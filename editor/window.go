@@ -1,9 +1,6 @@
 package editor
 
 import (
-	"fmt"
-	"log/slog"
-
 	"github.com/Tesohh/femto/buffer"
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
@@ -84,7 +81,7 @@ func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int,
 		// filter out all sections that arent in this line so char has to do less work
 		styles := []StyleSection{}
 		for _, s := range w.StyleSections {
-			if s.Y == y {
+			if s.Y == y { // NOTE: if multi statusbars don't get rendered, this is probably the culprit as the y could maybe not match
 				styles = append(styles, s)
 			}
 		}
@@ -94,15 +91,13 @@ func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int,
 				continue
 			}
 
-			style := tcell.StyleDefault
+			style := e.Theme.Default
 			for _, s := range styles {
 				if x >= s.StartX && x <= s.EndX {
 					style = s.Style
 					break
 				}
 			}
-
-			slog.Info(fmt.Sprintf("%#v", style))
 
 			e.Screen.SetContent(x+startX, y+startY, char, nil, style)
 			x += runewidth.RuneWidth(char)
