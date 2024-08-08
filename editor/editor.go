@@ -14,6 +14,9 @@ type Editor struct {
 	Commands map[string]Command
 	Plugins  []Plugin
 
+	Themes map[string]Theme
+	Theme  Theme // for simplicity's (and performance) sake, since we won't change theme often, we don't save the id but just the theme itself here
+
 	Screen             tcell.Screen
 	Windows            []Window
 	FocusedWindowIndex int // if set to something that isn't -1, overrides the Tab's CurrentWindowId
@@ -51,6 +54,7 @@ func (e *Editor) Setup() {
 	}) // TEMP:
 
 	e.Commands = Commands
+	e.Themes = map[string]Theme{}
 
 	var err error
 	e.Keymap, err = defaultKeymap.ToInternal()

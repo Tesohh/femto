@@ -5,6 +5,12 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
+func (e *Editor) RegisterThemeMap(themes map[string]Theme) {
+	for k, v := range themes {
+		e.Themes[k] = v
+	}
+}
+
 func (e *Editor) RegisterCommandMap(cmds map[string]Command) {
 	for k, v := range cmds {
 		e.Commands[k] = v

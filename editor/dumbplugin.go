@@ -13,6 +13,7 @@ type DumbPlugin struct {
 	Info     PluginInfo
 	Commands map[string]Command // if it's a third party plugin, please prefix Commands with your plugin id
 	Keymap   humankey.HumanKeymap
+	Themes   map[string]Theme
 }
 
 func (p *DumbPlugin) GetInfo() PluginInfo {
@@ -24,11 +25,16 @@ func (p *DumbPlugin) Startup(e *Editor) error {
 		e.RegisterCommandMap(p.Commands)
 	}
 
+	var err error
 	if p.Keymap != nil {
-		e.RegisterKeymap(p.Keymap)
+		err = e.RegisterKeymap(p.Keymap)
 	}
 
-	return nil
+	if p.Themes != nil {
+		e.RegisterThemeMap(p.Themes)
+	}
+
+	return err
 }
 
 func (p *DumbPlugin) Draw(e *Editor) error {

@@ -28,6 +28,8 @@ func main() {
 		}
 	}
 
+	e.Theme = e.Themes["rosepine.main"]
+
 	for {
 		err := e.Update()
 		if err != nil {

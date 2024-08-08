@@ -41,10 +41,10 @@ func (s *StatusBar) Draw(e *editor.Editor) error {
 	switch e.Win().Mode {
 	case "normal":
 		mode = "NORMAL"
-		style = style.Background(tcell.NewHexColor(0xc4a7e7)) // TEMP: should read from theme
+		style = style.Background(e.Theme.NormalModeAccent)
 	case "insert":
 		mode = "INSERT"
-		style = style.Background(tcell.NewHexColor(0xf6c177)) // TEMP: should read from theme
+		style = style.Background(e.Theme.InsertModeAccent)
 	}
 
 	str := fmt.Sprintf(" %s ", mode)
