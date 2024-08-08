@@ -10,8 +10,8 @@
   - [ ] Rendering
     - [x] basic drawing
     - [ ] range based drawing (for when content goes out of rendering bounds)
-    - [ ] render cursor based on current window start
-      - [ ] What if the cursor is managed by the window that has focus? we can pass a isFocused parameter...
+    - [x] render cursor based on current window start
+      - [x] What if the cursor is managed by the window that has focus? we can pass a isFocused parameter...
   - [x] Move to editor being a window too
     - [x] Center window
     - [x] The buffer is a tab local window
@@ -24,15 +24,18 @@
       - [x] Tab becomes just a collection of tab local windows
   - [ ] Ability to get a window by id, both on editor and tab
         This is for plugins that need other windows data
-  - [ ] Move from string mode to enum modes, so windows always start in normal mode
-        Or you could also just set "normal" as a fallback when receiving strokes
+- [ ] Move from string mode to enum modes, so windows always start in normal mode
+      Or you could also just set "normal" as a fallback when receiving strokes
 - [ ] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
   - [ ] Access to editor stuff
-- [ ] add all the fun features
 - [ ] interactive windows
   - [ ] Interactive windows have a special type of buffer.
   - [ ] Some commands (eg Enter) are forwarded to the interactive window, which has it's own CommandMap and can manage and execute itself.
 - [ ] Composite motions (eg c then iw, c then w, d then d)
   - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode 
+- [ ] Color sections
+- [ ] Theming
+
+- [ ] add all the fun features

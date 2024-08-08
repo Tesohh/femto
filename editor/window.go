@@ -17,9 +17,10 @@ func setupWindow(w *Window) *Window {
 	return w
 }
 
-func (e *Editor) RegisterWindow(w Window) {
+func (e *Editor) RegisterWindow(w Window) *Window {
 	setupWindow(&w)
 	e.Windows = append(e.Windows, w)
+	return &e.Windows[len(e.Windows)-1]
 }
 
 type Alignment uint8
@@ -48,12 +49,12 @@ type Window struct {
 	Size      int
 	Priority  int
 
-	Shown   bool
-	Focused bool
-	Flags   WindowFlags
+	Shown bool
+	Flags WindowFlags
 
 	// buffer stuff
 	Buffer   buffer.Buffer // to implement interactivity, you just need to make a type InteractiveBuffer and runtime check if its that typ
+	Title    string        // used so scratchpads can have a name in the statusbar
 	FilePath string        // if left empty, will treat buffer as scratchpad
 	Mode     string
 	Sequence []humankey.InternalKey

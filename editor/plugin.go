@@ -33,7 +33,7 @@ type PluginInfo struct {
 
 type Plugin interface {
 	GetInfo() PluginInfo
-	Startup(*Editor) error
-	Update(*Editor, tcell.Event) tcell.Event // Plugins can hijack the event by returning a new one. Only do this for errors or for catching the event
-	Draw(*Editor) error
+	Startup(e *Editor) error
+	Update(e *Editor, event tcell.Event) tcell.Event // Plugins can hijack the event by returning a new one. Only do this for errors or for catching the event
+	Draw(e *Editor) error
 }
