@@ -34,6 +34,13 @@ var Commands = map[string]Command{
 			return nil
 		},
 	},
+	"normal": {
+		Name: "Normal mode",
+		Func: func(e *Editor) error {
+			e.Win().Mode = "normal"
+			return nil
+		},
+	},
 	"write": {
 		Name: "Write file",
 		Func: func(e *Editor) error {

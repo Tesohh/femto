@@ -20,8 +20,8 @@ var keymap = humankey.HumanKeymap{
 		"a": "insert.a",
 	},
 	"insert": {
-		"esc":       "normal",
-		"backspace": "backspace",
+		"esc":       "insert.tonormal",
+		"backspace": "insert.backspace",
 	},
 }
 
@@ -39,14 +39,14 @@ var commands = map[string]editor.Command{
 			return nil
 		},
 	},
-	"normal": {
+	"insert.tonormal": {
 		Func: func(e *editor.Editor) error {
 			e.Win().Mode = "normal"
 			e.Buf().Left(1)
 			return nil
 		},
 	},
-	"backspace": {
+	"insert.backspace": {
 		Func: func(e *editor.Editor) error {
 			if e.Buf().Pos().X == 0 {
 				return nil

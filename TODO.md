@@ -35,7 +35,9 @@
   - [ ] Some commands (eg Enter) are forwarded to the interactive window, which has it's own CommandMap and can manage and execute itself.
 - [ ] Composite motions (eg c then iw, c then w, d then d)
   - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode 
+  - [ ] Probably scope creep. Please just add a visual mode with operations and thats it
 - [x] Color sections
 - [x] Theming
+- [ ] Command line
 
 - [ ] add all the fun features
