@@ -2,7 +2,6 @@ package editor
 
 import (
 	"cmp"
-	"log/slog"
 	"reflect"
 	"slices"
 
@@ -10,7 +9,6 @@ import (
 )
 
 func (e *Editor) Draw() error {
-	slog.Info("Redrawing...")
 	e.Screen.SetStyle(e.Theme.Default)
 	e.Screen.Clear()
 

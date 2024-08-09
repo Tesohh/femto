@@ -1,8 +1,6 @@
 package editor
 
 import (
-	"fmt"
-	"log/slog"
 	"strings"
 	"time"
 	"unicode"
@@ -21,7 +19,6 @@ func (c *EventCaught) When() time.Time {
 
 func (e *Editor) Update() error {
 	event := e.Screen.PollEvent()
-	slog.Info(fmt.Sprintf("got new event: %#v", event))
 
 	for _, p := range e.Plugins {
 		switch p.(type) {
