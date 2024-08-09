@@ -15,16 +15,23 @@ It's so bad, you're just better off writing on paper and OCR scanning your code
 - Actually good features:
   - Fully modular:
     - The editor is completely based on a plugin system.
-    - Almost everything, (except the very core of the editor main loop and drawing) is a plugin
+    - Almost everything, (except the very core of the editor main loop) is a plugin
       - (even the insert mode is a plugin)
     - Plugins that don't need to be injected in the main loop, and just define commands and keymaps can use the DumbPlugin struct.
     - More complex plugins crate a struct that implements the Plugin interface
       - This means that plugins can even be stateful by simply having properties in the struct.
     - Plugins can communicate with eachother through events
   - Portable:
-    - femto compiles into a single executable, including plugins.
+    - femto compiles into a single executable, including plugins and library dependencies.
       - caveat: you need to recompile to add plugins.
   - Modal
+  - Windowing system:
+    - Windows are placed automatically by the editor and can be managed by plugins very easily
+      - calling editor.RegisterWindow returns a pointer to the registered window so plugins can store the window and use it in their Update or Draw functions
+    - The text editor itself is just a writeable window
+    - Each window can add their own, window-local Commands and Keymaps.
+      - Imagine for example a netrw like window with it's own keymaps.
+      - You can also disable a key here, by mapping it to the `noop` command (eg for disabling insert mode)
 - Esoteric features (planned):
   - Optional plugins:
     - [ ] Battle pass: locks some editor features behind a leveling system, the ideal way to use a text editor.
