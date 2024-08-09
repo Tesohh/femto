@@ -61,7 +61,14 @@ func (e *Editor) Update() error {
 		if mode == "" { // failsafe
 			mode = "normal"
 		}
-		matches := e.Keymap.GetMatches(mode, e.Win().Sequence)
+
+		winkeymap, err := e.Win().Keymap.ToInternal()
+		if err != nil {
+			return err
+		}
+
+		keymap := e.Keymap.MergeInternal(winkeymap)
+		matches := keymap.GetMatches(mode, e.Win().Sequence)
 		if len(matches) == 1 && len(matches[0].Sequence) == len(e.Win().Sequence) {
 			err := e.RunCommand(matches[0].Command)
 			e.Win().Sequence = []humankey.InternalKey{}

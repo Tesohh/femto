@@ -61,6 +61,9 @@ type Window struct {
 
 	StyleSections []StyleSection
 	BorderStyle   tcell.Style
+
+	Keymap   humankey.HumanKeymap // keymaps that only work here. override editor global keymap
+	Commands map[string]Command   // commands that only work here. overrides editor global commands
 }
 
 func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int, isFocused bool) error {

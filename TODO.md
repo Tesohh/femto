@@ -28,9 +28,10 @@
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation
   - [x] Access to editor stuff
-- [ ] interactive windows
-  - [ ] Interactive windows have a special type of buffer.
-  - [ ] Some commands (eg Enter) are forwarded to the interactive window, which has it's own CommandMap and can manage and execute itself.
+- [x] interactive windows
+  - [x] Each window has it's own humankeymap and commandmap, which:
+    - [x] the keymap gets merged on the global one
+    - [x] when using e.RunCommand, check for window commands and give priority to those
 - [ ] Composite motions (eg c then iw, c then w, d then d)
   - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode 
   - [ ] Probably scope creep. Please just add a visual mode with operations and thats it

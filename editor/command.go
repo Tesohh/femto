@@ -7,12 +7,18 @@ import (
 type CommandFunc func(e *Editor) error
 
 func (e *Editor) RunCommand(id string) error {
-	cmd, ok := Commands[id]
-	if !ok {
+	editorCmd, editorOk := e.Commands[id]
+	windowCmd, windowOk := e.Win().Commands[id]
+
+	if !editorOk && !windowOk {
 		return ErrNoCommandFound.Context(id)
 	}
 
-	return cmd.Func(e)
+	if windowOk {
+		return windowCmd.Func(e)
+	} else {
+		return editorCmd.Func(e)
+	}
 }
 
 type Command struct {
@@ -22,10 +28,11 @@ type Command struct {
 	Func        CommandFunc
 }
 
-func Alias(cmd string) CommandFunc {
-	return func(e *Editor) error {
-		return e.RunCommand(cmd)
-	}
+func Alias(cmd string) Command {
+	return Command{
+		Func: func(e *Editor) error {
+			return e.RunCommand(cmd)
+		}}
 }
 
 var Commands = map[string]Command{
@@ -48,6 +55,7 @@ var Commands = map[string]Command{
 			panic("not implemented")
 		},
 	},
+	"w": Alias("write"),
 	"quit": {
 		Name: "quit editor",
 		Func: func(e *Editor) error {
@@ -56,4 +64,5 @@ var Commands = map[string]Command{
 			return nil
 		},
 	},
+	"q": Alias("quit"),
 }
