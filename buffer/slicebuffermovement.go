@@ -5,7 +5,7 @@ import "github.com/Tesohh/femto/femath"
 func (s *SliceBuffer) Down(times int) {
 	s.pos.Y += times
 	s.pos.Y = femath.Clamp(s.pos.Y, 0, len(s.content)-1)
-	s.pos.X = femath.Clamp(s.pos.X, 0, len(s.content[s.pos.Y])-1)
+	s.pos.X = femath.Clamp(s.pos.X, 0, len(s.content[s.pos.Y]))
 }
 
 func (s *SliceBuffer) Up(times int) {
