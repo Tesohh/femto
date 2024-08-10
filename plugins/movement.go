@@ -34,7 +34,11 @@ var Movement = editor.DumbPlugin{
 		},
 		"right": {
 			Func: func(e *editor.Editor) error {
-				e.Buf().Right(1)
+				if e.Win().Mode == "insert" {
+					e.Buf().ForceRight(1)
+				} else {
+					e.Buf().Right(1)
+				}
 				return nil
 			},
 		},
