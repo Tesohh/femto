@@ -43,8 +43,7 @@
 - [ ] Plugin viewer
 
 - [ ] Fix: pointers returned by RegisterWindow act weird.
-- [ ] Fix: commandbar commands get merged PERMANENTLY into the editor's commandmap it seems.
-
-  - When you type a command and execute it, then press ESC in insert mode, it tries to do command.exit
+- [x] Fix: commandbar commands get merged PERMANENTLY into the editor's commandmap it seems.
+      When you type a command and execute it, then press ESC in insert mode, it tries to do command.exit
 
 - [ ] add all the fun features
