@@ -43,6 +43,7 @@
 - [ ] Plugin viewer
 
 - [ ] Fix: pointers returned by RegisterWindow act weird.
+- [ ] Fix: GetWindow also has weird pointers, probably due to it returning a pointer to the for loop's `w`
 - [x] Fix: commandbar commands get merged PERMANENTLY into the editor's commandmap it seems.
       When you type a command and execute it, then press ESC in insert mode, it tries to do command.exit
 
