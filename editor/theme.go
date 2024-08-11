@@ -8,6 +8,8 @@ type Theme struct {
 	Default tcell.Style
 	Borders tcell.Color
 
+	Error tcell.Style
+
 	Red       tcell.Color
 	Yellow    tcell.Color
 	Pink      tcell.Color

@@ -2,20 +2,11 @@ package editor
 
 import (
 	"strings"
-	"time"
 	"unicode"
 
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 )
-
-type EventCaught struct {
-	when time.Time
-}
-
-func (c *EventCaught) When() time.Time {
-	return c.when
-}
 
 func (e *Editor) Update() error {
 	defer GracefulPanic(e)

@@ -19,6 +19,8 @@ var RosePine = editor.DumbPlugin{
 			Default: tcell.StyleDefault.Background(tcell.NewHexColor(0x191724)).Foreground(tcell.NewHexColor(0xe0def4)),
 			Borders: tcell.NewHexColor(0x524f67),
 
+			Error: tcell.StyleDefault.Foreground(tcell.NewHexColor(0xeb6f92)),
+
 			Red:       tcell.NewHexColor(0xeb6f92),
 			Yellow:    tcell.NewHexColor(0xf6c177),
 			Pink:      tcell.NewHexColor(0xebbcba),

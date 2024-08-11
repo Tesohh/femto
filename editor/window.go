@@ -35,13 +35,13 @@ func (e *Editor) FocusWindow(id string) error {
 	return ErrNoWindowFoundForId.Context(id)
 }
 
-func (e *Editor) GetWindow(id string) (*Window, error) {
+func (e *Editor) GetWindow(id string) *Window {
 	for _, w := range e.Windows {
 		if w.Id == id {
-			return &w, nil
+			return &w
 		}
 	}
-	return nil, ErrNoWindowFoundForId.Context(id)
+	return nil
 }
 
 type Alignment uint8

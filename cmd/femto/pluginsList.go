@@ -9,7 +9,7 @@ var pluginsList = []editor.Plugin{
 	&plugins.Movement,
 	&plugins.RosePine,
 	&plugins.InsertMode{},
-	&plugins.CommandMode{},
+	&plugins.CommandBar{},
 	&plugins.StatusBar{},
 	// &plugins.TestWindowsPlugin{},
 }

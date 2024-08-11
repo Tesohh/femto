@@ -53,7 +53,6 @@ func main() {
 
 func logErr(err error) {
 	if ferr, ok := err.(editor.FemtoError); ok {
-		// TODO: do different things based on error level
 		slog.Log(context.TODO(), ferr.LogLevel, ferr.Error())
 	} else {
 		slog.Error(err.Error())

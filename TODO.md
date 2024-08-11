@@ -33,10 +33,18 @@
     - [x] the keymap gets merged on the global one
     - [x] when using e.RunCommand, check for window commands and give priority to those
 - [ ] Composite motions (eg c then iw, c then w, d then d)
-  - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode 
+  - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode
   - [ ] Probably scope creep. Please just add a visual mode with operations and thats it
 - [x] Color sections
 - [x] Theming
-- [ ] Command line
+- [x] Command line
+- [ ] Error logging on cmdbar
+- [ ] Config loading
+- [ ] Plugin viewer
+
+- [ ] Fix: pointers returned by RegisterWindow act weird.
+- [ ] Fix: commandbar commands get merged PERMANENTLY into the editor's commandmap it seems.
+
+  - When you type a command and execute it, then press ESC in insert mode, it tries to do command.exit
 
 - [ ] add all the fun features

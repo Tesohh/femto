@@ -25,11 +25,11 @@ func (t *Tab) FocusWindow(e *Editor, id string) error {
 	return ErrNoWindowFoundForId.Context(id)
 }
 
-func (t *Tab) GetWindow(id string) (*Window, error) {
+func (t *Tab) GetWindow(id string) *Window {
 	for _, w := range t.Windows {
 		if w.Id == id {
-			return &w, nil
+			return &w
 		}
 	}
-	return nil, ErrNoWindowFoundForId.Context(id)
+	return nil
 }
