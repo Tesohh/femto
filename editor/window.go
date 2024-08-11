@@ -23,6 +23,27 @@ func (e *Editor) RegisterWindow(w Window) *Window {
 	return &e.Windows[len(e.Windows)-1]
 }
 
+func (e *Editor) FocusWindow(id string) error {
+	for i, w := range e.Windows {
+		if w.Id == id {
+			e.FocusedWindowIndex = i
+			break
+		}
+	}
+
+	// if we get to this point it means we found nothing
+	return ErrNoWindowFoundForId.Context(id)
+}
+
+func (e *Editor) GetWindow(id string) (*Window, error) {
+	for _, w := range e.Windows {
+		if w.Id == id {
+			return &w, nil
+		}
+	}
+	return nil, ErrNoWindowFoundForId.Context(id)
+}
+
 type Alignment uint8
 
 const (

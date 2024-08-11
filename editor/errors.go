@@ -34,4 +34,8 @@ var (
 		Message:  "Cannot parse key",
 		LogLevel: slog.LevelError,
 	}
+	ErrNoWindowFoundForId = FemtoError{
+		Message:  "command not found",
+		LogLevel: slog.LevelError,
+	}
 )

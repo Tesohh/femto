@@ -40,6 +40,7 @@ func (e *Editor) Setup() {
 	e.Tabs = []Tab{{}} // TEMP:
 
 	e.Tabs[0].RegisterWindow(Window{
+		Id:        "editor",
 		Alignment: AlignmentCenter,
 		Shown:     true,
 	}) // TEMP:

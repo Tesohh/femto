@@ -9,6 +9,8 @@ import (
 )
 
 func (e *Editor) Draw() error {
+	defer GracefulPanic(e)
+
 	e.Screen.SetStyle(e.Theme.Default)
 	e.Screen.Clear()
 

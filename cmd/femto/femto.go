@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"os"
 
@@ -32,6 +33,10 @@ func main() {
 
 	for {
 		err := e.Update()
+		p := recover()
+		if p != nil {
+			slog.Info(fmt.Sprintf("%v", p))
+		}
 		if err != nil {
 			logErr(err)
 			continue

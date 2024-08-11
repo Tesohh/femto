@@ -30,44 +30,18 @@ func (p *CommandMode) GetInfo() editor.PluginInfo {
 func (p *CommandMode) Startup(e *editor.Editor) error {
 	err := e.RegisterKeymap(humankey.HumanKeymap{
 		"normal": {
-			":": "commandmode",
-		},
-		"command": {
-			"esc":   "command.tonormal",
-			"enter": "command.execute",
+			":": "command.focus",
 		},
 	})
 
 	e.RegisterCommandMap(map[string]editor.Command{
-		"commandmode": {
+		"command.focus": {
 			Func: func(e *editor.Editor) error {
-				p.w.Shown = true
-				e.Win().Mode = "command"
-				return p.w.Buffer.Write([][]rune{{}})
-			},
-		},
-		"command.tonormal": {
-			Func: func(e *editor.Editor) error {
-				p.w.Shown = false
-				e.Win().Mode = "normal"
-				return p.w.Buffer.Write([][]rune{{}}) // clear
-			},
-		},
-		"command.execute": {
-			Func: func(e *editor.Editor) error {
-				r, err := p.w.Buffer.Read()
-				if err != nil {
-					return err
-				}
-
-				s := string(r[0])
-				s = strings.Trim(s, ": ")
-
-				err = e.RunCommand(s)
-				if err != nil {
-					return err
-				}
-				return e.RunCommand("command.tonormal")
+				e.FocusWindow("commandbar")
+				p.w.Buffer.Write([][]rune{{':'}})
+				e.Win().Mode = "insert" // no idea why p.w.Mode doesn't do the trick
+				p.w.Buffer.ForceRight(1)
+				return nil
 			},
 		},
 	})
@@ -77,32 +51,55 @@ func (p *CommandMode) Startup(e *editor.Editor) error {
 		Alignment: editor.AlignmentBottom,
 		Size:      1,
 		Priority:  3,
+		Shown:     true,
 		Flags:     editor.WindowFlagUnfocusable,
+
+		Keymap: humankey.HumanKeymap{
+			"insert": {
+				"esc":   "command.exit",
+				"enter": "command.execute",
+			},
+		},
+		Commands: map[string]editor.Command{
+			"command.exit": {
+				Func: func(e *editor.Editor) error {
+					e.Tab().FocusWindow(e, "editor")
+					p.w.Buffer.Write([][]rune{{}})
+					return nil
+				},
+			},
+			"command.execute": {
+				Func: func(e *editor.Editor) error {
+					runes, cerr := p.w.Buffer.Read()
+					if cerr != nil {
+						return cerr
+					}
+
+					id := string(runes[0])
+					id = strings.Trim(id, ": ")
+
+					e.RunCommand("command.exit")
+
+					cerr = e.RunCommand(id)
+					if cerr != nil {
+						e.Screen.PostEvent(&editor.EventCaught{}) // send a empty event to force a screen refresh
+						return cerr
+					}
+					return nil
+				},
+			},
+		},
 	})
+
+	p.w.Buffer.Write([][]rune{[]rune("Welcome to femto")})
 
 	return err
 }
 
 func (p *CommandMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
-	if e.Win().Mode != "command" {
-		return nil
-	}
-
-	if event, ok := event.(*tcell.EventKey); ok {
-		if event.Key() == tcell.KeyRune {
-			p.w.Buffer.Insert(p.w.Buffer.Pos(), event.Rune())
-			p.w.Buffer.ForceRight(1)
-			return &editor.EventCaught{}
-		}
-	}
-
 	return nil
 }
 
 func (p *CommandMode) Draw(e *editor.Editor) error {
-	if e.Win().Mode != "command" {
-		return nil
-	}
-
 	return nil
 }

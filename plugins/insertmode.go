@@ -20,8 +20,9 @@ var keymap = humankey.HumanKeymap{
 		"a": "insert.a",
 	},
 	"insert": {
-		"esc":       "insert.tonormal",
-		"backspace": "insert.backspace",
+		"esc":        "insert.tonormal",
+		"backspace":  "insert.backspace",
+		"backspace2": "insert.backspace",
 	},
 }
 

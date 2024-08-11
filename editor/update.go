@@ -18,6 +18,8 @@ func (c *EventCaught) When() time.Time {
 }
 
 func (e *Editor) Update() error {
+	defer GracefulPanic(e)
+
 	event := e.Screen.PollEvent()
 
 	for _, p := range e.Plugins {
