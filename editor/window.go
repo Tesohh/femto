@@ -17,10 +17,9 @@ func setupWindow(w *Window) *Window {
 	return w
 }
 
-func (e *Editor) RegisterWindow(w Window) *Window {
+func (e *Editor) RegisterWindow(w Window) {
 	setupWindow(&w)
 	e.Windows = append(e.Windows, w)
-	return &e.Windows[len(e.Windows)-1]
 }
 
 func (e *Editor) FocusWindow(id string) error {
@@ -36,9 +35,9 @@ func (e *Editor) FocusWindow(id string) error {
 }
 
 func (e *Editor) GetWindow(id string) *Window {
-	for _, w := range e.Windows {
+	for i, w := range e.Windows {
 		if w.Id == id {
-			return &w
+			return &e.Windows[i]
 		}
 	}
 	return nil

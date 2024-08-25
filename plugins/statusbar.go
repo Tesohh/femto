@@ -8,7 +8,6 @@ import (
 )
 
 type StatusBar struct {
-	w *editor.Window
 }
 
 func (s *StatusBar) GetInfo() editor.PluginInfo {
@@ -20,7 +19,7 @@ func (s *StatusBar) GetInfo() editor.PluginInfo {
 }
 
 func (s *StatusBar) Startup(e *editor.Editor) error {
-	s.w = e.RegisterWindow(editor.Window{
+	e.RegisterWindow(editor.Window{
 		Id:        "statusbar",
 		Alignment: editor.AlignmentBottom,
 		Priority:  3,
@@ -49,13 +48,14 @@ func (s *StatusBar) Draw(e *editor.Editor) error {
 
 	str := fmt.Sprintf(" %s ", mode)
 
-	s.w.StyleSections = []editor.StyleSection{}
-	s.w.StyleSections = append(s.w.StyleSections, editor.StyleSection{
+	w := e.GetWindow("statusbar")
+	w.StyleSections = []editor.StyleSection{}
+	w.StyleSections = append(w.StyleSections, editor.StyleSection{
 		Y:      0,
 		StartX: 0,
 		EndX:   len(" NORMAL "),
 		Style:  style,
 	})
-	s.w.Buffer.Write([][]rune{[]rune(str)})
+	w.Buffer.Write([][]rune{[]rune(str)})
 	return nil
 }

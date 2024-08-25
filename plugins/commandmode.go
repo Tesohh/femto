@@ -10,7 +10,6 @@ import (
 )
 
 type CommandBar struct {
-	w *editor.Window
 }
 
 func (p *CommandBar) GetInfo() editor.PluginInfo {
@@ -32,10 +31,10 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 		"command.focus": {
 			Func: func(e *editor.Editor) error {
 				e.FocusWindow("commandbar")
-				p.w.Buffer.Write([][]rune{{':'}})
+				e.Win().Buffer.Write([][]rune{{':'}})
 				e.Win().StyleSections = []editor.StyleSection{}
-				e.Win().Mode = "insert" // no idea why p.w.Mode doesn't do the trick
-				p.w.Buffer.ForceRight(1)
+				e.Win().Mode = "insert"
+				e.Win().Buffer.ForceRight(1)
 				return nil
 			},
 		},
@@ -51,7 +50,7 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 		},
 	})
 
-	p.w = e.RegisterWindow(editor.Window{
+	e.RegisterWindow(editor.Window{
 		Id:        "commandbar",
 		Alignment: editor.AlignmentBottom,
 		Size:      1,
@@ -69,13 +68,13 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 			"command.exit": {
 				Func: func(e *editor.Editor) error {
 					e.Tab().FocusWindow(e, "editor")
-					p.w.Buffer.Write([][]rune{{}})
+					e.GetWindow("commandbar").Buffer.Write([][]rune{{}})
 					return nil
 				},
 			},
 			"command.execute": {
 				Func: func(e *editor.Editor) error {
-					runes, cerr := p.w.Buffer.Read()
+					runes, cerr := e.GetWindow("commandbar").Buffer.Read()
 					if cerr != nil {
 						return cerr
 					}
@@ -96,21 +95,23 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 		},
 	})
 
-	p.w.Buffer.Write([][]rune{[]rune("Welcome to femto")})
+	e.GetWindow("commandbar").Buffer.Write([][]rune{[]rune("Welcome to femto")})
 
 	return err
 }
 
 func (p *CommandBar) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 	if event, ok := event.(*editor.CommandBarEvent); ok {
-		p.w.Buffer.Write([][]rune{[]rune(event.Msg)})
-		// p.w.StyleSections = []editor.StyleSection{}
-		// p.w.StyleSections = append(p.w.StyleSections, editor.StyleSection{
-		// 	Y:      0,
-		// 	StartX: 0,
-		// 	EndX:   len(event.Msg),
-		// 	Style:  event.Style,
-		// })
+		w := e.GetWindow("commandbar")
+		w.Buffer.Write([][]rune{[]rune(event.Msg)})
+		w.FilePath = "zestfest" // TEMP:
+		w.StyleSections = []editor.StyleSection{}
+		w.StyleSections = append(w.StyleSections, editor.StyleSection{
+			Y:      0,
+			StartX: 0,
+			EndX:   len(event.Msg),
+			Style:  event.Style,
+		})
 		return &editor.EventCaught{}
 	}
 	return nil
