@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"log/slog"
 	"strings"
 	"time"
 
@@ -104,7 +105,6 @@ func (p *CommandBar) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 	if event, ok := event.(*editor.CommandBarEvent); ok {
 		w := e.GetWindow("commandbar")
 		w.Buffer.Write([][]rune{[]rune(event.Msg)})
-		w.FilePath = "zestfest" // TEMP:
 		w.StyleSections = []editor.StyleSection{}
 		w.StyleSections = append(w.StyleSections, editor.StyleSection{
 			Y:      0,
@@ -119,4 +119,32 @@ func (p *CommandBar) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 
 func (p *CommandBar) Draw(e *editor.Editor) error {
 	return nil
+}
+
+func CommandBarTryPushMessage(e *editor.Editor, err error) {
+	w := e.GetWindow("commandbar")
+	if w == nil {
+		slog.Warn("commandbar window not found")
+		return
+	}
+
+	var style tcell.Style
+	if err, ok := err.(editor.FemtoError); ok {
+
+		switch err.LogLevel {
+		case slog.LevelInfo:
+			return
+		case slog.LevelWarn:
+			style = e.Theme.Warn
+		case slog.LevelError:
+			style = e.Theme.Error
+		}
+
+	}
+
+	e.Screen.PostEvent(&editor.CommandBarEvent{
+		Msg:   err.Error(),
+		Style: style,
+		Time:  time.Now(),
+	})
 }

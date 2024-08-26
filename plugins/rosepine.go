@@ -20,6 +20,7 @@ var RosePine = editor.DumbPlugin{
 			Borders: tcell.NewHexColor(0x524f67),
 
 			Error: tcell.StyleDefault.Foreground(tcell.NewHexColor(0xeb6f92)),
+			Warn:  tcell.StyleDefault.Foreground(tcell.NewHexColor(0xf6c177)),
 
 			Red:       tcell.NewHexColor(0xeb6f92),
 			Yellow:    tcell.NewHexColor(0xf6c177),

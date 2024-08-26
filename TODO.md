@@ -22,8 +22,7 @@
       - [x] UI buffers have no filename, which means they are "scratchpads"
       - [x] Mode, sequence and all that is saved in the Window of course.
       - [x] Tab becomes just a collection of tab local windows
-  - [ ] Ability to get a window by id, both on editor and tab
-        This is for plugins that need other windows data
+  - [x] Ability to get a window by id, both on editor and tab
 - [x] Plugin "api"
   - [x] Base Plugin interface
   - [x] DumbPlugin implementation

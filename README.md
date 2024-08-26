@@ -27,8 +27,8 @@ It's so bad, you're just better off writing on paper and OCR scanning your code
   - Modal
   - Windowing system:
     - Windows are placed automatically by the editor and can be managed by plugins very easily
-      - calling editor.RegisterWindow returns a pointer to the registered window so plugins can store the window and use it in their Update or Draw functions
-    - The text editor itself is just a writeable window
+      - Plugins can assign an ID to a window and GetWindow it from the editor or the tab.
+      - The text editor itself is just a writeable window
     - Each window can add their own, window-local Commands and Keymaps.
       - Imagine for example a netrw like window with it's own keymaps.
       - You can also disable a key here, by mapping it to the `noop` command (eg for disabling insert mode)

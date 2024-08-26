@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/Tesohh/femto/editor"
+	"github.com/Tesohh/femto/plugins"
 )
 
 func main() {
@@ -39,12 +40,14 @@ func main() {
 		}
 		if err != nil {
 			logErr(err)
+			plugins.CommandBarTryPushMessage(&e, err)
 			continue
 		}
 
 		err = e.Draw()
 		if err != nil {
 			logErr(err)
+			plugins.CommandBarTryPushMessage(&e, err)
 			continue
 		}
 	}

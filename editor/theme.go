@@ -9,6 +9,7 @@ type Theme struct {
 	Borders tcell.Color
 
 	Error tcell.Style
+	Warn  tcell.Style
 
 	Red       tcell.Color
 	Yellow    tcell.Color
