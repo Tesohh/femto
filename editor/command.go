@@ -49,13 +49,6 @@ var Commands = map[string]Command{
 			return nil
 		},
 	},
-	"write": {
-		Name: "Write file",
-		Func: func(e *Editor) error {
-			panic("not implemented")
-		},
-	},
-	"w": Alias("write"),
 	"quit": {
 		Name: "quit editor",
 		Func: func(e *Editor) error {

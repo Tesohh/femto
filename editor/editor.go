@@ -40,7 +40,8 @@ func (e *Editor) Setup() {
 	e.Tabs = []Tab{{}} // TEMP:
 
 	e.Tabs[0].RegisterWindow(Window{
-		Id:        "editor",
+		Id:        "main",
+		FilePath:  ".testfile",
 		Alignment: AlignmentCenter,
 		Shown:     true,
 	}) // TEMP:

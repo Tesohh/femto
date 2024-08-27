@@ -7,6 +7,7 @@ import (
 
 var pluginsList = []editor.Plugin{
 	&plugins.Movement,
+	&plugins.Io,
 	&plugins.RosePine,
 	&plugins.InsertMode{},
 	&plugins.CommandBar{},

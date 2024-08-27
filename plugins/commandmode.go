@@ -68,7 +68,7 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 		Commands: map[string]editor.Command{
 			"command.exit": {
 				Func: func(e *editor.Editor) error {
-					e.Tab().FocusWindow(e, "editor")
+					e.Tab().FocusWindow(e, "main")
 					e.GetWindow("commandbar").Buffer.Write([][]rune{{}})
 					return nil
 				},

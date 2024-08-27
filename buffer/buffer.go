@@ -25,6 +25,7 @@ type CRUDer interface {
 
 type Reader interface {
 	Read() ([][]rune, error)
+	Read1D() ([]rune, error)
 }
 
 type Writer interface {
