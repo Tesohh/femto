@@ -77,10 +77,13 @@ var Io = editor.DumbPlugin{
 
 				b, err := os.ReadFile(path)
 				if err != nil {
-					return editor.FemtoError{
-						Message:  err.Error(),
-						LogLevel: slog.LevelError,
-					}
+					// no big deal
+					slog.Warn(err.Error())
+					b = []byte{}
+					e.Screen.PostEvent(&editor.CommandBarEvent{
+						Msg:  fmt.Sprintf("file %s not found, will be created when writing", path),
+						Time: time.Now(),
+					})
 				}
 
 				lines := strings.Split(string(b), "\n")
