@@ -89,7 +89,7 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 
 					e.RunCommand("command.exit")
 
-					cerr = e.RunCommand(id, args...)
+					cerr = e.RuCommand(id, args...)
 					if cerr != nil {
 						e.Screen.PostEvent(&editor.EventCaught{}) // send a empty event to force a screen refresh
 						return cerr

@@ -1,3 +1,24 @@
+# Important stuff
+
+- [ ] Operations on line (yy, cc, dd, ...) in normal mode
+- [ ] Visual mode
+- [ ] Operations (y, c, d, ...) in visual mode
+- [ ] Range based drawing
+
+# Last stuff
+
+- [ ] add all the fun features
+
+# Secondary stuff
+
+- [ ] Config (loading from file) (do we even really need a config??)
+- [ ] Plugin viewer
+- [ ] Composite motions (eg c then iw, c then w, d then d)
+  - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode
+  - [ ] Probably scope creep. Please just add a visual mode with operations and thats it
+
+# Backlog
+
 - [x] Move from ebiten to terminal rendering
 - [x] Human key package
 - [x] Basic editing features
@@ -31,20 +52,13 @@
   - [x] Each window has it's own humankeymap and commandmap, which:
     - [x] the keymap gets merged on the global one
     - [x] when using e.RunCommand, check for window commands and give priority to those
-- [ ] Composite motions (eg c then iw, c then w, d then d)
-  - [ ] Could have something where when c is pressed it starts catching events like the hidden "o" mode in vim, and when it's satisfied exceute command with motion and go back into normal mode
-  - [ ] Probably scope creep. Please just add a visual mode with operations and thats it
 - [x] Color sections
 - [x] Theming
 - [x] Command line
 - [x] Error logging on cmdbar
 - [x] Commands with arguments
-- [ ] Config (loading from file)
-- [ ] Plugin viewer
 
 - [x] Fix: pointers returned by RegisterWindow act weird.
 - [x] Fix: GetWindow also has weird pointers, probably due to it returning a pointer to the for loop's `w`
 - [x] Fix: commandbar commands get merged PERMANENTLY into the editor's commandmap it seems.
       When you type a command and execute it, then press ESC in insert mode, it tries to do command.exit
-
-- [ ] add all the fun features
