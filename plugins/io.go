@@ -26,13 +26,20 @@ var Io = editor.DumbPlugin{
 	Commands: map[string]editor.Command{
 		"write": {
 			Name: "Write file",
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				win := e.Win()
-				if win.FilePath == "" {
-					return ErrWindowIsScratchpad
+
+				var path string
+				if len(args) == 0 || args[0] == "" {
+					if win.FilePath == "" {
+						return ErrWindowIsScratchpad
+					}
+					path = win.FilePath
+				} else {
+					path = args[0]
 				}
 
-				dir := filepath.Dir(win.FilePath)
+				dir := filepath.Dir(path)
 				err := os.MkdirAll(dir, os.ModePerm)
 				if err != nil {
 					return ErrFailedToCreateDirs.Context(err.Error())
@@ -43,13 +50,13 @@ var Io = editor.DumbPlugin{
 					return err
 				}
 
-				err = os.WriteFile(win.FilePath, []byte(string(b)), 0644)
+				err = os.WriteFile(path, []byte(string(b)), 0644)
 				if err != nil {
 					return err
 				}
 
 				e.Screen.PostEvent(&editor.CommandBarEvent{
-					Msg:  fmt.Sprintf("wrote file %s", win.FilePath),
+					Msg:  fmt.Sprintf("wrote file %s", path),
 					Time: time.Now(),
 				})
 
@@ -57,5 +64,12 @@ var Io = editor.DumbPlugin{
 			},
 		},
 		"w": editor.Alias("write"),
+		// "edit": {
+		// 	Name: "Opens specified file for editing in current file",
+		// 	Func: func(e *editor.Editor, args ...string) error {
+		//
+		// 		return nil
+		// 	},
+		// },
 	},
 }

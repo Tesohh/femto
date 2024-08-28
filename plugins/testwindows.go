@@ -24,7 +24,7 @@ func (p *TestWindowsPlugin) Startup(e *editor.Editor) error {
 	})
 	e.RegisterCommandMap(map[string]editor.Command{
 		"test_moving_window": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				e.FocusedWindowIndex = 1
 				return nil
 			},

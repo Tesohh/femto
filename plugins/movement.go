@@ -15,25 +15,25 @@ var Movement = editor.DumbPlugin{
 	},
 	Commands: map[string]editor.Command{
 		"left": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				e.Buf().Left(1)
 				return nil
 			},
 		},
 		"down": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				e.Buf().Down(1)
 				return nil
 			},
 		},
 		"up": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				e.Buf().Up(1)
 				return nil
 			},
 		},
 		"right": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				if e.Win().Mode == "insert" {
 					e.Buf().ForceRight(1)
 				} else {
@@ -43,7 +43,7 @@ var Movement = editor.DumbPlugin{
 			},
 		},
 		"bigLeft": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				line := e.Buf().Line()
 				x := 0
 				for ; x < len(line); x++ {
@@ -57,7 +57,7 @@ var Movement = editor.DumbPlugin{
 			},
 		},
 		"bigRight": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, args ...string) error {
 				e.Buf().GoTo(femath.Vec2{X: len(e.Buf().Line()), Y: e.Buf().Pos().Y})
 				return nil
 			},

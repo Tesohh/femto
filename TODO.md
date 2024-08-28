@@ -38,6 +38,7 @@
 - [x] Theming
 - [x] Command line
 - [x] Error logging on cmdbar
+- [x] Commands with arguments
 - [ ] Config (loading from file)
 - [ ] Plugin viewer
 

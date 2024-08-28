@@ -1,12 +1,14 @@
 package editor
 
 import (
+	"fmt"
+	"log/slog"
 	"os"
 )
 
-type CommandFunc func(e *Editor) error
+type CommandFunc func(e *Editor, args ...string) error
 
-func (e *Editor) RunCommand(id string) error {
+func (e *Editor) RunCommand(id string, args ...string) error {
 	editorCmd, editorOk := e.Commands[id]
 	windowCmd, windowOk := e.Win().Commands[id]
 
@@ -14,10 +16,12 @@ func (e *Editor) RunCommand(id string) error {
 		return ErrNoCommandFound.Context(id)
 	}
 
+	slog.Info(fmt.Sprintf("running command %s with args %v", id, args))
+
 	if windowOk {
-		return windowCmd.Func(e)
+		return windowCmd.Func(e, args...)
 	} else {
-		return editorCmd.Func(e)
+		return editorCmd.Func(e, args...)
 	}
 }
 
@@ -30,28 +34,28 @@ type Command struct {
 
 func Alias(cmd string) Command {
 	return Command{
-		Func: func(e *Editor) error {
-			return e.RunCommand(cmd)
+		Func: func(e *Editor, args ...string) error {
+			return e.RunCommand(cmd, args...)
 		}}
 }
 
 var Commands = map[string]Command{
 	"noop": {
 		Name: "no operation",
-		Func: func(e *Editor) error {
+		Func: func(e *Editor, args ...string) error {
 			return nil
 		},
 	},
 	"normal": {
 		Name: "Normal mode",
-		Func: func(e *Editor) error {
+		Func: func(e *Editor, args ...string) error {
 			e.Win().Mode = "normal"
 			return nil
 		},
 	},
 	"quit": {
 		Name: "quit editor",
-		Func: func(e *Editor) error {
+		Func: func(e *Editor, args ...string) error {
 			e.Screen.Fini()
 			os.Exit(0)
 			return nil

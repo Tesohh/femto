@@ -28,27 +28,27 @@ var keymap = humankey.HumanKeymap{
 
 var commands = map[string]editor.Command{
 	"insert.i": {
-		Func: func(e *editor.Editor) error {
+		Func: func(e *editor.Editor, args ...string) error {
 			e.Win().Mode = "insert"
 			return nil
 		},
 	},
 	"insert.a": {
-		Func: func(e *editor.Editor) error {
+		Func: func(e *editor.Editor, args ...string) error {
 			e.Buf().ForceRight(1)
 			e.Win().Mode = "insert"
 			return nil
 		},
 	},
 	"insert.tonormal": {
-		Func: func(e *editor.Editor) error {
+		Func: func(e *editor.Editor, args ...string) error {
 			e.Win().Mode = "normal"
 			e.Buf().Left(1)
 			return nil
 		},
 	},
 	"insert.backspace": {
-		Func: func(e *editor.Editor) error {
+		Func: func(e *editor.Editor, args ...string) error {
 			if e.Buf().Pos().X == 0 {
 				return nil
 			}

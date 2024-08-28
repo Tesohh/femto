@@ -30,7 +30,7 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 
 	e.RegisterCommandMap(map[string]editor.Command{
 		"command.focus": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, _ ...string) error {
 				e.FocusWindow("commandbar")
 				e.Win().Buffer.Write([][]rune{{':'}})
 				e.Win().StyleSections = []editor.StyleSection{}
@@ -40,7 +40,7 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 			},
 		},
 		"command.test": {
-			Func: func(e *editor.Editor) error {
+			Func: func(e *editor.Editor, _ ...string) error {
 				e.Screen.PostEvent(&editor.CommandBarEvent{
 					Msg:   "Cissy",
 					Style: e.Theme.Error,
@@ -67,25 +67,29 @@ func (p *CommandBar) Startup(e *editor.Editor) error {
 		},
 		Commands: map[string]editor.Command{
 			"command.exit": {
-				Func: func(e *editor.Editor) error {
+				Func: func(e *editor.Editor, _ ...string) error {
 					e.Tab().FocusWindow(e, "main")
 					e.GetWindow("commandbar").Buffer.Write([][]rune{{}})
 					return nil
 				},
 			},
 			"command.execute": {
-				Func: func(e *editor.Editor) error {
+				Func: func(e *editor.Editor, _ ...string) error {
 					runes, cerr := e.GetWindow("commandbar").Buffer.Read()
 					if cerr != nil {
 						return cerr
 					}
 
-					id := string(runes[0])
-					id = strings.Trim(id, ": ")
+					text := string(runes[0])
+					text = strings.Trim(text, ": ")
+
+					secs := strings.Split(text, " ")
+					id := secs[0]
+					args := secs[1:]
 
 					e.RunCommand("command.exit")
 
-					cerr = e.RunCommand(id)
+					cerr = e.RunCommand(id, args...)
 					if cerr != nil {
 						e.Screen.PostEvent(&editor.EventCaught{}) // send a empty event to force a screen refresh
 						return cerr
