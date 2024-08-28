@@ -4,7 +4,7 @@
   - [x] hjkl and arrow keys
   - [x] Mode switching
   - [x] insert mode
-  - [ ] file writing / reading
+  - [x] file writing / reading
 - [ ] Windowing system
   - [x] Orchestrating
   - [ ] Rendering

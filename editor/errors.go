@@ -30,6 +30,10 @@ var (
 		Message:  "no command found",
 		LogLevel: slog.LevelError,
 	}
+	ErrArgumentMissing = FemtoError{
+		Message:  "argument missing",
+		LogLevel: slog.LevelError,
+	}
 	ErrKeyUnparsable = FemtoError{
 		Message:  "Cannot parse key",
 		LogLevel: slog.LevelError,

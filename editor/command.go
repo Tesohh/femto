@@ -1,8 +1,6 @@
 package editor
 
 import (
-	"fmt"
-	"log/slog"
 	"os"
 )
 
@@ -15,8 +13,6 @@ func (e *Editor) RunCommand(id string, args ...string) error {
 	if !editorOk && !windowOk {
 		return ErrNoCommandFound.Context(id)
 	}
-
-	slog.Info(fmt.Sprintf("running command %s with args %v", id, args))
 
 	if windowOk {
 		return windowCmd.Func(e, args...)

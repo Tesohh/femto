@@ -5,8 +5,10 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
+	"github.com/Tesohh/femto/buffer"
 	"github.com/Tesohh/femto/editor"
 )
 
@@ -64,12 +66,43 @@ var Io = editor.DumbPlugin{
 			},
 		},
 		"w": editor.Alias("write"),
-		// "edit": {
-		// 	Name: "Opens specified file for editing in current file",
-		// 	Func: func(e *editor.Editor, args ...string) error {
-		//
-		// 		return nil
-		// 	},
-		// },
+		"edit": {
+			Name: "Opens specified file for editing in current file",
+			Func: func(e *editor.Editor, args ...string) error {
+				if len(args) == 0 || args[0] == "" {
+					return editor.ErrArgumentMissing
+				}
+
+				path := args[0]
+
+				b, err := os.ReadFile(path)
+				if err != nil {
+					return editor.FemtoError{
+						Message:  err.Error(),
+						LogLevel: slog.LevelError,
+					}
+				}
+
+				lines := strings.Split(string(b), "\n")
+
+				rs := [][]rune{}
+				for _, line := range lines {
+					rs = append(rs, []rune(line))
+				}
+
+				buf := buffer.SliceBuffer{}
+				err = buf.Write(rs)
+				if err != nil {
+					return err
+				}
+
+				win := e.Tab().GetWindow("main")
+				win.FilePath = path
+				win.Buffer = &buf
+
+				return nil
+			},
+		},
+		"e": editor.Alias("edit"),
 	},
 }
