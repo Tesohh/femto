@@ -1,7 +1,9 @@
 # Important stuff
 
-- [ ] Operations on line (yy, cc, dd, ...) in normal mode
 - [ ] Visual mode
+  - [ ] FIX: for some reason anything in the start line is always considered selected
+  - [ ] FIX: selection changes show up 1 "frame" later
+- [ ] Operations on line (yy, cc, dd, ...) in normal mode
 - [ ] Operations (y, c, d, ...) in visual mode
 - [ ] Range based drawing
 

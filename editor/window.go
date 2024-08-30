@@ -2,6 +2,7 @@ package editor
 
 import (
 	"github.com/Tesohh/femto/buffer"
+	"github.com/Tesohh/femto/femath"
 	"github.com/Tesohh/femto/humankey"
 	"github.com/gdamore/tcell/v2"
 	"github.com/mattn/go-runewidth"
@@ -73,11 +74,12 @@ type Window struct {
 	Flags WindowFlags
 
 	// buffer stuff
-	Buffer   buffer.Buffer // to implement interactivity, you just need to make a type InteractiveBuffer and runtime check if its that typ
-	Title    string        // used so scratchpads can have a name in the statusbar
-	FilePath string        // if left empty, will treat buffer as scratchpad
-	Mode     string
-	Sequence []humankey.InternalKey
+	Buffer    buffer.Buffer // to implement interactivity, you just need to make a type InteractiveBuffer and runtime check if its that typ
+	Selection femath.Range2
+	Title     string // used so scratchpads can have a name in the statusbar
+	FilePath  string // if left empty, will treat buffer as scratchpad
+	Mode      string
+	Sequence  []humankey.InternalKey
 
 	StyleSections []StyleSection
 	BorderStyle   tcell.Style
@@ -120,6 +122,10 @@ func (w *Window) Draw(e *Editor, startX int, startY int, boundX int, boundY int,
 					style = s.Style
 					break
 				}
+			}
+
+			if (w.Mode == "visual" || w.Mode == "viline") && w.Selection.ContainsVec2(femath.Vec2{X: x, Y: y}) {
+				style = style.Background(e.Theme.SelectionBG)
 			}
 
 			e.Screen.SetContent(x+startX, y+startY, char, nil, style)

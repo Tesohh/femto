@@ -16,8 +16,9 @@ var RosePine = editor.DumbPlugin{
 		"rosepine.main": {
 			Name: "Rose Pine (Main)",
 
-			Default: tcell.StyleDefault.Background(tcell.NewHexColor(0x191724)).Foreground(tcell.NewHexColor(0xe0def4)),
-			Borders: tcell.NewHexColor(0x524f67),
+			Default:     tcell.StyleDefault.Background(tcell.NewHexColor(0x191724)).Foreground(tcell.NewHexColor(0xe0def4)),
+			SelectionBG: tcell.NewHexColor(0x403d52),
+			Borders:     tcell.NewHexColor(0x524f67),
 
 			Error: tcell.StyleDefault.Foreground(tcell.NewHexColor(0xeb6f92)),
 			Warn:  tcell.StyleDefault.Foreground(tcell.NewHexColor(0xf6c177)),
@@ -28,9 +29,11 @@ var RosePine = editor.DumbPlugin{
 			Blue:      tcell.NewHexColor(0x31748f),
 			LightBlue: tcell.NewHexColor(0x9ccfd8),
 			Purple:    tcell.NewHexColor(0xc4a7e7),
+			Green:     tcell.NewHexColor(0x31748f),
 
 			NormalModeAccent: tcell.NewHexColor(0xc4a7e7),
 			InsertModeAccent: tcell.NewHexColor(0xeb6f92),
+			VisualModeAccent: tcell.NewHexColor(0x31748f),
 		},
 	},
 }

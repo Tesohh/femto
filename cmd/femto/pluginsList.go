@@ -10,6 +10,7 @@ var pluginsList = []editor.Plugin{
 	&plugins.Io,
 	&plugins.RosePine,
 	&plugins.InsertMode{},
+	&plugins.VisualMode{},
 	&plugins.CommandBar{},
 	&plugins.StatusBar{},
 	// &plugins.TestWindowsPlugin{},

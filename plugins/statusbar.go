@@ -44,6 +44,12 @@ func (s *StatusBar) Draw(e *editor.Editor) error {
 	case "insert":
 		mode = "INSERT"
 		style = style.Background(e.Theme.InsertModeAccent)
+	case "visual":
+		mode = "VISUAL"
+		style = style.Background(e.Theme.VisualModeAccent)
+	case "viline":
+		mode = "VILINE"
+		style = style.Background(e.Theme.VisualModeAccent)
 	}
 
 	str := fmt.Sprintf(" %s ", mode)
