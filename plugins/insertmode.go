@@ -77,7 +77,7 @@ func (p *InsertMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 		if event.Key() == tcell.KeyRune {
 			e.Buf().Insert(e.Buf().Pos(), event.Rune())
 			e.Buf().ForceRight(1)
-			return &editor.EventCaught{}
+			return &editor.CharInsertedEvent{Rune: event.Rune()}
 		}
 	}
 
