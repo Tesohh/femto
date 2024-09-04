@@ -8,6 +8,11 @@ import (
 
 func TestRangeContainsVec2(t *testing.T) {
 	assert.Equal(t, Range2{
+		Start: Vec2{X: 5, Y: 0},
+		End:   Vec2{X: 5, Y: 0},
+	}.ContainsVec2(Vec2{X: 7, Y: 0}), false)
+
+	assert.Equal(t, Range2{
 		Start: Vec2{X: 0, Y: 0},
 		End:   Vec2{X: 0, Y: 0},
 	}.ContainsVec2(Vec2{X: 0, Y: 0}), true)

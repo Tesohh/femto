@@ -108,6 +108,12 @@ func (p *VisualMode) Startup(e *editor.Editor) error {
 }
 
 func (p *VisualMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
+	return nil
+}
+
+// Looks weird, but since plugin update happens before editor update,
+// the selection would be updated on the next frame, so we put it in Draw...
+func (p *VisualMode) Draw(e *editor.Editor) error {
 	win := e.Win()
 	if win.Mode == "visual" {
 		win.Selection.End = win.Buffer.Pos()
@@ -116,9 +122,5 @@ func (p *VisualMode) Update(e *editor.Editor, event tcell.Event) tcell.Event {
 	}
 
 	slog.Info(fmt.Sprintf("%#v", win.Selection))
-	return nil
-}
-
-func (p *VisualMode) Draw(e *editor.Editor) error {
 	return nil
 }
