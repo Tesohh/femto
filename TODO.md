@@ -2,14 +2,16 @@
 
 - [ ] Visual mode
   - [ ] FIX: for some reason anything in the start line is always considered selected
-  - [ ] FIX: selection changes show up 1 "frame" later
+  - [x] FIX: selection changes show up 1 "frame" later
 - [ ] Operations on line (yy, cc, dd, ...) in normal mode
 - [ ] Operations (y, c, d, ...) in visual mode
 - [ ] Range based drawing
+- [ ] FIX: persistent storage crashing
 
 # Last stuff
 
 - [ ] add all the fun features
+  - [ ] Persistent storage for plugins
 
 # Secondary stuff
 

@@ -23,3 +23,12 @@ type CommandBarEvent struct {
 func (c *CommandBarEvent) When() time.Time {
 	return c.Time
 }
+
+type CharInsertedEvent struct {
+	Rune rune
+	when time.Time
+}
+
+func (c *CharInsertedEvent) When() time.Time {
+	return c.when
+}

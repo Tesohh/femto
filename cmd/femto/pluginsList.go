@@ -13,5 +13,6 @@ var pluginsList = []editor.Plugin{
 	&plugins.VisualMode{},
 	&plugins.CommandBar{},
 	&plugins.StatusBar{},
+	&plugins.BattlePass{},
 	// &plugins.TestWindowsPlugin{},
 }
